@@ -48,7 +48,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-		@rm -f $(OBJS)
+		@rm -rf $(OBJ_DIR)
 		@make clean -C $(LIBFT_DIR)
 
 fclean: clean
