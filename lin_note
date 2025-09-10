@@ -1,0 +1,12 @@
+git add .
+git commit -m "Finish: new lexer"
+git push origin lin
+
+--------------------
+git checkout main
+git pull origin main
+git merge lin
+git add .
+git commit -m ""
+git push all
+#merge and push to main
