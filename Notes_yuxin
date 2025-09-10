@@ -11,13 +11,18 @@ mlx_image_t *img = mlx_new_image(mlx, 800, 600);
 //create a image  where I draw px to, returns a pointer to the image object.
 //We dont draw directly to window, but to an image & display it in the window
 
-mlx_image_to_window(mlx, img, 0, 0);
+void mlx_image_to_window(mlx, img, 0, 0);
 // put the image to the window; 0, 0 for top left corner of the window
-//把 image 显示到窗口	知道它是怎么把画布放上去的
 
-// mlx_put_pixel(image, x, y, color)	    //在 image 上画像素	学会怎么画一个点
-// mlx_loop(mlx)                        	//进入渲染循环	明白主循环的概念
-// mlx_terminate(mlx)	                    //释放所有资源并退出	知道如何干净退出
+void mlx_put_pixel(image, x, y, color)	    
+//draw a pixel of color to the imgge, color(RGBA)
+//0xAABBCCAA
+    
 
-// how to do a fake test in so-long where get_next_line and mlx42 is ready
-cc -Wall -Wextra -Werror -I. -Iinclude -Ilibft -Ilibft/get_next_line -IMLX42/include main_minirt.c libft/libft.a libft/get_next_line/get_next_line.c libft/get_next_line/get_next_line_utils.c MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm -o miniRT_test
+void mlx_loop(mlx)                        	
+//start the rendering loop, keep the wimdow open
+// inside the loop, check event and update the window
+
+void mlx_terminate(mlx)	
+// free all resources
+

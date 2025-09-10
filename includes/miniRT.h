@@ -1,8 +1,12 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+//self_defined header
+# include "../libft/libft.h"
 #include "MLX42/MLX42.h"
-#include "get_next_line.h"
+#include "parsing.h"
+
+//lib headers
 #include <stdlib.h>
 #include <stdio.h>
 
