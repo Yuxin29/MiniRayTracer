@@ -72,17 +72,6 @@ static int validating_identifier(char *line)
 	return (0);
 }
 
-static int	precheck_av(int ac, char **av)
-{
-	char	*ext;
-
-	if (ac != 2)
-		return(err_msg_code("wrong ac nbr", 0));
-	ext = ft_strrchr(av[1], '.');
-	if (!ext || ft_strcmp(ext, ".rt") != 0)
-		return (err_msg_code("wrong format", 0));
-	return (1);
-}
 
 void parsing_line(char *line, t_scene *scene)
 {
@@ -114,44 +103,46 @@ void parsing_line(char *line, t_scene *scene)
 		// 	get_cylinder(line, scene);
 }
 
-//return 0 as error and 1 as parsing success
-t_scene *parsing(int ac, char **av)
+static int	precheck_av(int ac, char **av, t_scene *scene)
 {
-    int		fd;
+	char	*ext;
+
+	if (ac != 2)
+		return(err_msg_code("wrong ac nbr", 0));
+	ext = ft_strrchr(av[1], '.');
+	if (!ext || ft_strcmp(ext, ".rt") != 0)
+		return (err_msg_code("wrong format", 0));
+	scene->fd = open(av[1], O_RDONLY);
+	if (scene->fd == -1)
+		return (err_msg_code("open file failed", 0));
+	return (1);
+}
+
+//return 0 as error and 1 as parsing success
+int parsing(int ac, char **av, t_scene *scene)
+{
 	char	*line;
-	t_scene	*scene;
 	
-	if (!precheck_av(ac, av))
-		return (NULL);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	if (!precheck_av(ac, av, scene))
+		return (0);
+	line = get_next_line(scene->fd);
+	while (1)
 	{
-		ft_putstr_fd("open file failed", 1);
-		return (NULL);
-	}
-	scene = malloc(sizeof(t_scene));
-	if (!scene)
-	{
-		ft_putstr_fd("malloc scene failed", 1);
-		return (NULL);
-	}
-	ft_bzero(scene, sizeof(t_scene));
-	line = get_next_line(fd);
-	while (line)
-	{
+		line = get_next_line(scene->fd);
+		if (!line)
+			break ;
 		printf("%s", line);	//test printing, remove later
 		if (validating_identifier(line) == 0)
 		{
 			ft_putstr_fd("invalid line in the file", 1);
 			free(line);
 			ft_free_scene(scene);
-			close(fd);
-			return (NULL);
+			close(scene->fd);
+			return (0);
 		}
 		if (line[0])
 		 	parsing_line(line, scene);
 		free (line);
-		line = get_next_line(fd);
 	}
 
 	//test print
@@ -163,5 +154,5 @@ t_scene *parsing(int ac, char **av)
 	if (scene->sp)
 		print_sphere(scene->sp);
 
-	return (scene);
+	return (1);
 }

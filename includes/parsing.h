@@ -75,6 +75,7 @@ typedef struct s_sphere
 
 typedef struct s_scene
 {
+    int         fd;
     t_a_light   *ambient_light;
     t_camera    *cam;
     // t_light   *light;
@@ -96,7 +97,7 @@ typedef struct s_scene
 
 //parsing.c
 void    parsing_line(char *line, t_scene *scene);
-t_scene *parsing(int ac, char **av);
+int     parsing(int ac, char **av, t_scene *scene);
 
 // parsing_env.c
 void    get_a_light(char *line, t_scene *scene);
