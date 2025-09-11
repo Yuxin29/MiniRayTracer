@@ -77,7 +77,7 @@ int main(int ac, char **av)
 	ft_bzero(scene, sizeof(t_scene));
 	//parsing
 	if (!parsing(ac, av, scene))
-		return(err_msg_code("parsing failed\n", -1));
+		return(-1); //erro msg sent in parsing
 	// mlx
 	if (!mlx_window(scene))
 		return(err_msg_code("mlx initiation failed\n", -1));

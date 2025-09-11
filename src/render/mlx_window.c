@@ -32,6 +32,6 @@ int	mlx_window(t_scene *scene)
 	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
 	render_scene(scene);
 	mlx_loop(scene->mlx);                       	
-	mlx_terminate(scene->mlx);
+	//mlx_terminate(scene->mlx);
 	return (1);
 }

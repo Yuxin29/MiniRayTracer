@@ -35,3 +35,6 @@ pros and cons       low orecision, low mem com  high precheck_av, high mem deman
 
 ------valgrind-------------
 valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=mlx42.supp ./miniRT scenes/box.rt
+
+lots of mem loss here:
+ valgrind  --leak-check=full  --suppressions=mlx42.supp ./miniRT scenes/box.rt

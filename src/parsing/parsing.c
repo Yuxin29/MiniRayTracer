@@ -8,9 +8,6 @@ static int validating_identifier(char *line)
 {
 	int len;
 	
-	// printf("%s", "debug");
-	// if (!line)
-	// 	return 0;
 	len = ft_strlen(line);
 	if (*line && ft_isspace(*line))
 		return (1);
@@ -86,9 +83,9 @@ int parsing(int ac, char **av, t_scene *scene)
 			close(scene->fd);
 			return (0);
 		}
-		if (line[0])
-		 	parsing_line(line, scene);
+		parsing_line(line, scene);
 		free (line);
 	}
+	close(scene->fd);
 	return (1);
 }
