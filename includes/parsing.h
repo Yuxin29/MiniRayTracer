@@ -45,13 +45,17 @@ typedef struct s_camera
 // ∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
 // ∗ the sphere diameter: 12.6
 // ∗ R,G,B colors in range [0-255]: 10, 0, 255
+typedef struct s_sphere t_sphere;
+
 typedef struct s_sphere
 {
-    t_vec3  sp_center;
-    float   dia;
-    int     r;
-    int     g;
-    int     b;
+    t_vec3      sp_center;
+    float       dia;
+    int         r;
+    int         g;
+    int         b;
+    t_sphere    *next;
+    int         sp_nbr;
 }	t_sphere;
 
 //======================== WEEK 2 ONLY ============================

@@ -1,4 +1,4 @@
-
+// #include    "render.h"
 
 // //this checks the move and if it is valid, and what kind of move it is,
 // void	keyboard_control(mlx_key_data_t	keydata, void *param)
