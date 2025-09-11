@@ -16,6 +16,7 @@ OBJ_DIR := obj
 SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing.c $(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/parsing_env.c $(SRC_DIR)/parsing/parsing_obj.c \
+		$(SRC_DIR)/render/mlx_window.c \
 		$(SRC_DIR)/utils/err_and_free.c \
 		$(GNL_SRC)   # FIX: add GNL source files
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o) 

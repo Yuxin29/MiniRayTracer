@@ -9,9 +9,10 @@ int err_msg_code(char *str, int n)
     return (n);
 }
 
+//free linked list objects
 static void ft_free_objects(t_scene *scene)
 {
-    if (scene->sp)
+    if (scene->sp) //should be a linked list
     {
         free(scene->sp);
         scene->sp = NULL;

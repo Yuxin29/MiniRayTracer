@@ -1,6 +1,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+#define WIDTH 800
+#define HEIGHT 600
+
 typedef struct s_vec3
 {
 	float	x;
@@ -23,6 +26,7 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b);
 #include "parsing.h"
 #include "utils.h"
 #include "raytrace.h"
+#include "render.h"
 
 //lib headers
 # include <stdlib.h>

@@ -1,5 +1,6 @@
 #include "miniRT.h"
 #include "parsing.h"
+#include    "render.h"
 
 
 //test printing delete alter
@@ -63,21 +64,6 @@ void    ft_print_scene(t_scene *scene)
     printf("===== END OF SCENE PRINT =====\n\n");
 }
 //=======================================================
-
-//remove to render later
-int	mlx_window(t_scene *scene)
-{
-	//this part need to take out later
-	scene->mlx = mlx_init(720, 480, "miniRT_test", false);
-	if (!scene->mlx)
-   		return(err_msg_code("mlx_init failed\n", 0));
-	scene->img = mlx_new_image(scene->mlx, 480, 720);
-	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
-	mlx_put_pixel(scene->img, 0, 0, 0xAABBCCAA);
-	mlx_loop(scene->mlx);                       	
-	mlx_terminate(scene->mlx);
-	return (1);
-}
 
 //test version for compiling
 int main(int ac, char **av)
