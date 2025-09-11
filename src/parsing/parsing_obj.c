@@ -7,9 +7,11 @@ static void	err_return(char *str)
 		ft_putstr_fd(str, 1);
 	return ;
 }
+
 void get_sphere(char *line, t_scene *scene)
 {
 	t_sphere	*new_sp;
+	t_sphere	*tmp;
 	char		**phases;
 	char		**vec_1;
 	char		**vec_2;
@@ -18,7 +20,6 @@ void get_sphere(char *line, t_scene *scene)
 	if (!new_sp)
 		return (err_return("malloc failure inside t_scene\n"));
 	ft_bzero(new_sp, sizeof(t_sphere));;
-	
 	phases = ft_split(line, ' ');
 	if (!phases)
 		return (err_return("malloc failure inside t_scene\n"));
@@ -31,12 +32,16 @@ void get_sphere(char *line, t_scene *scene)
 	new_sp->r = ft_atoi((const char *)vec_2[0]);
 	new_sp->g = ft_atoi((const char *)vec_2[1]);
 	new_sp->b = ft_atoi((const char *)vec_2[2]);
-
 	new_sp->next = NULL;
 	if (!scene->sp)
 		scene->sp = new_sp;
 	else
-		scene->sp->next = new_sp;
+	{
+		tmp = scene->sp;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_sp;
+	}
 }
 
 // void get_plane(char *line, t_scene *scene)

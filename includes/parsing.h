@@ -55,7 +55,6 @@ typedef struct s_sphere
     int         g;
     int         b;
     t_sphere    *next;
-    int         sp_nbr;
 }	t_sphere;
 
 //======================== WEEK 2 ONLY ============================
@@ -89,6 +88,8 @@ typedef struct s_scene
     // int       pl_nbr;
     // t_cl        *cl;
     // int       cl_nbr;
+    mlx_t       *mlx;
+    mlx_image_t *img;
 }	t_scene;
 
 //headers
