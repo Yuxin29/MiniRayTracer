@@ -18,15 +18,10 @@ void ft_print_scene(t_scene *scene)
 	{
 		printf("Ambient Light:\n");
 		printf("  ratio: %.2f\n", scene->ambient_light->ratio);
-		if (scene->ambient_light->rgb)
-		{
-			printf("  color: R=%d G=%d B=%d\n",
-				scene->ambient_light->rgb->r,
-				scene->ambient_light->rgb->g,
-				scene->ambient_light->rgb->b);
-		}
-		else
-			printf("  color: (null)\n");
+		printf("  color: R=%d G=%d B=%d\n",
+			scene->ambient_light->rgb.r,
+			scene->ambient_light->rgb.g,
+			scene->ambient_light->rgb.b);
 	}
 	else
 		printf("Ambient Light: (null)\n");
@@ -62,13 +57,8 @@ void ft_print_scene(t_scene *scene)
 				cur->sp_center.x, cur->sp_center.y, cur->sp_center.z);
 			printf("    diameter: %.2f (radius: %.2f)\n",
 				cur->dia, cur->radius);
-			if (cur->rgb)
-			{
-				printf("    color: R=%d G=%d B=%d\n",
-					cur->rgb->r, cur->rgb->g, cur->rgb->b);
-			}
-			else
-				printf("    color: (null)\n");
+			printf("    color: R=%d G=%d B=%d\n",
+				cur->rgb.r, cur->rgb.g, cur->rgb.b);
 			cur = cur->next;
 		}
 	}

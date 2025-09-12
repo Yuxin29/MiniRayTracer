@@ -20,7 +20,7 @@ typedef struct s_color
 typedef struct s_a_light
 {
     float   ratio;
-    t_color *rgb;
+    t_color rgb;
 }	t_a_light;
 
 // ◦ Camera:
@@ -58,7 +58,7 @@ typedef struct s_sphere
 	t_vec3  sp_center;
 	float   dia;
 	float	radius; // lin modify
-	t_color *rgb;
+	t_color rgb;
     t_sphere    *next;
 }	t_sphere;
 

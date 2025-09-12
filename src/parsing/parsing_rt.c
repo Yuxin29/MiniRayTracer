@@ -48,6 +48,7 @@ static t_scene *precheck_av(int ac, char **av)
 //return 0 as error and 1 as parsing success
 t_scene *parsing(int ac, char **av)
 {
+	char	*raw_line;
 	char	*line;
 	t_scene *scene;
 
@@ -56,11 +57,13 @@ t_scene *parsing(int ac, char **av)
 		return (NULL);
 	while (1)
 	{
-		line = get_next_line(scene->fd);
-		if (!line)
+		raw_line = get_next_line(scene->fd);
+		if (!raw_line)
 			break ;
-		if (validating_parsing_line(line, scene) == false)
+		line = ft_strtrim(raw_line, "\n"); //might be other change line
+		if (!validating_parsing_line(line, scene))
 		{
+			printf("%d\n", validating_parsing_line(line, scene));
 			ft_putstr_fd("invalid line in the file", 1);
 			free(line);
 			ft_free_scene(scene);

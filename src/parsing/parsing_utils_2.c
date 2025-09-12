@@ -3,11 +3,14 @@
 
 static bool check_valid_color(char *color)
 {
-	while (*color)
+    int i;
+
+    i = 0;
+	while (color[i])
 	{
-		if (!ft_isdigit(*color))
+		if (!ft_isdigit(color[i]))
 			return false;
-		color++;
+		i++;
 	}
 	if (ft_atoi(color) > 255)
 		return false;
@@ -16,16 +19,18 @@ static bool check_valid_color(char *color)
 
 bool check_rgb(char **colors)
 {
-	printf("%s\n", "debug3");
+    int i;
+
+    i = 0;
     if (count_token_nbr(colors) != 3)
 		return false;
-    printf("%s\n", "debug3");
-	while(*colors)
+	while(colors[i])
 	{
-		printf("%s\n", "debug3");
-        if (!check_valid_color(*colors))
+		printf("%s\n", colors[i]);
+        printf("%d\n", check_valid_color(colors[i]));
+        if (!check_valid_color(colors[i]))
 			return false;
-		colors++;
+		i++;
 	}
 	return true;
 }

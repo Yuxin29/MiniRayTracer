@@ -41,7 +41,7 @@ bool validate_parsing_tokens_sp(char **tokens, t_scene *scene)
 		free(new_sp);
 		return (false);
 	}
-	do_color(vec_2, new_sp->rgb);
+	do_color(vec_2, &(new_sp->rgb));
 	new_sp->next = NULL;
 	if (!scene->sp)
 		scene->sp = new_sp;
