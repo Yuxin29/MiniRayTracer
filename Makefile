@@ -2,26 +2,20 @@ NAME := miniRT
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
-GNL_DIR := libft/get_next_line
-GNL_SRC := $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
-
-INCLUDES := -Iincludes -Ilibft -Ilibft/get_next_line -IMLX42/include
-#INCLUDES := -I includes -I libft -I MLX42/include -I$(GNL_DIR)
-
 SRC_DIR := src
 OBJ_DIR := obj
-#SRCS := $(SRC_DIR)/main.c
-#OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+LIBFT_DIR := libft
+LIBFT_LIB := $(LIBFT_DIR)/libft.a
+INCLUDES := -I includes -I libft -I MLX42/include
 
 SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing.c $(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/parsing_env.c $(SRC_DIR)/parsing/parsing_obj.c \
-		$(SRC_DIR)/utils/err_and_free.c \
-		$(GNL_SRC)   # FIX: add GNL source files
-OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o) 
+		$(SRC_DIR)/utils/err_and_free.c $(SRC_DIR)/utils/vector.c\
+		$(SRC_DIR)/intersection/sphere.c \
+		$(SRC_DIR)/raytrace/ray_at.c \
 
-LIBFT_DIR := libft
-LIBFT_LIB := $(LIBFT_DIR)/libft.a
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 MLX_REPO := https://github.com/codam-coding-college/MLX42.git
 MLX_DIR := MLX42
@@ -53,13 +47,9 @@ $(MLX_LIB):
 #if [ ! -d "my_folder" ]; then \ \ fi;
 #do i need -j4 / --parallel 4: compile up to 4 files simultaneously, which can speed up the build—especially on machines with multiple CPU cores.
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-#$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-#	@mkdir -p $(dir $@)
-#	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 		@rm -rf $(OBJ_DIR)

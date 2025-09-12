@@ -26,9 +26,9 @@ typedef struct s_a_light
 // ∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
 typedef struct s_camera
 {
-    t_vec3   v_point;
-    t_vec3   v_orien;
-    int   fov;
+	t_vec3	v_point;
+	t_vec3	v_orien;
+	float	fov; //lin modify
 }	t_camera;
 
 //======================== maybe also later ============================
