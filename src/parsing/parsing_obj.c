@@ -8,8 +8,6 @@ bool validate_parsing_tokens_sp(char **tokens, t_scene *scene)
 	char		**vec_1;
 	char		**vec_2;
 
-	if (count_token_nbr(tokens) != 4)
-		return false;
 	new_sp = malloc(sizeof(t_sphere));
 	if (!new_sp)
 		return (false);

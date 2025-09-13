@@ -5,8 +5,6 @@ bool validate_parsing_tokens_a(char **tokens, t_scene *scene)
 {
 	char	**colors;
 
-	if (count_token_nbr(tokens) != 3)
-		return false;
 	scene->ambient_light = malloc(sizeof(t_a_light));
 	if (!scene->ambient_light)
 		return false;
@@ -14,14 +12,11 @@ bool validate_parsing_tokens_a(char **tokens, t_scene *scene)
 	colors = ft_split(tokens[2], ',');
 	if (!colors)
 		return false; //need to have error msgs??
-	printf("%s\n", "debug2");
-	printf("%d\n", check_rgb(colors));
 	if (!check_rgb(colors))
 	{
 		ft_free_arr(colors);
 		return false;
 	}
-	printf("%s\n", "debug2");
 	do_color(colors, &(scene->ambient_light->rgb));
 	//float not check yet
 	scene->ambient_light->ratio = ft_atoi_float(tokens[1]);
@@ -34,8 +29,6 @@ bool validate_parsing_tokens_c(char **tokens, t_scene *scene)
 	char	**vec_1;
 	char	**vec_2;
 
-	if (count_token_nbr(tokens) != 4)
-		return false;
 	scene->cam = malloc(sizeof(t_camera));
 	if (!scene->cam)
 		return false;

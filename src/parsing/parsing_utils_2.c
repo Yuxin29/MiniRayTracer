@@ -26,8 +26,6 @@ bool check_rgb(char **colors)
 		return false;
 	while(colors[i])
 	{
-		printf("%s\n", colors[i]);
-        printf("%d\n", check_valid_color(colors[i]));
         if (!check_valid_color(colors[i]))
 			return false;
 		i++;
