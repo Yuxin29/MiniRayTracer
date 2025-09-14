@@ -128,10 +128,11 @@ typedef struct s_scene
 	mlx_image_t	*img;
 }	t_scene;
 
-//parsing_rt.c          4/5
+//parsing_file.c          4/5
 t_scene	*parsing(int ac, char **av);
 
 //parsing_line.c        4/5
+//check each line, return true or false to parsing
 bool	validating_parsing_line(char *line, t_scene *scene);
 
 // parsing_env.c     5/5
@@ -152,9 +153,10 @@ int		count_token_nbr(char **tokens);
 void	free_three_arr(char **vec_1, char **vec_2, char **colors);
 
 //parsing_utils_2.c   5/5
+//fill **str to t_vec and t_color, precheck a str is a valid float
+bool	check_valid_float(char *str);
 bool	do_color(char **colors, t_color *rgb);
 bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor);
-bool	check_valid_float(char *vec);
 bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
 
 #endif

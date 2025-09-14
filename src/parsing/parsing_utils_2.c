@@ -44,30 +44,30 @@ bool	do_color(char **colors, t_color *rgb)
 // a valid float str must has a digit before .
 //must has one and only one dote
 //after the dote, the has to be at list one digit
-bool	check_valid_float(char *vec)
+bool	check_valid_float(char *str)
 {
 	int		i;
 
 	i = 0;
-	if (!vec[0])
+	if (!str[0])
 		return (false);
-	if (vec[i] == '-')
+	if (str[i] == '-')
 		i++;
-	if (!ft_isdigit(vec[i]))
+	if (!ft_isdigit(str[i]))
 		return (false);
-	while (vec[i])
+	while (str[i])
 		i++;
-	if (vec[i] == '.')
+	if (str[i] == '.')
 	{
 		i++;
-		if (!vec[i])
+		if (!str[i])
 			return (false);
-		if (!ft_isdigit(vec[i]))
+		if (!ft_isdigit(str[i]))
 			return (false);
-		while (ft_isdigit(vec[i]))
+		while (ft_isdigit(str[i]))
 			i++;
 	}
-	if (vec[i] != '\0')
+	if (str[i] != '\0')
 		return (false);
 	return (true);
 }
