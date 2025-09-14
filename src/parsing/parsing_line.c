@@ -64,6 +64,7 @@ static bool validating_line_id(char *line)
 	return (false);
 }
 
+
 bool validating_parsing_line(char *line, t_scene *scene)
 {
 	char	**tokens;

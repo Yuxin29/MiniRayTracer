@@ -1,6 +1,8 @@
 #include "miniRT.h"
 #include "parsing.h"
 
+
+//check if file suffix valid // open file successful
 static bool check_file(char **av, t_scene *scene)
 {
 	char	*ext;
@@ -22,6 +24,8 @@ static bool check_file(char **av, t_scene *scene)
 	return (true);
 }
 
+//check if ac nbr correct and malloc for scene succcessful
+//then call the check file
 static t_scene *precheck_av(int ac, char **av)
 {
     t_scene *scene;
@@ -45,7 +49,9 @@ static t_scene *precheck_av(int ac, char **av)
     return (scene);
 }
 
-//return 0 as error and 1 as parsing success // execute order 66
+//call check av firsr, then get each line and check and parse eachline'
+// return the parsed scene to the main
+// if error occured during one line. free evertyihg so far and return null
 t_scene *parsing(int ac, char **av)
 {
 	char	*raw_line;

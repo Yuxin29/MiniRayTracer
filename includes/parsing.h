@@ -3,6 +3,7 @@
 
 #include "miniRT.h"
 
+//struct
 typedef struct s_color
 {
     int     r;
@@ -10,7 +11,6 @@ typedef struct s_color
     int     b;
 }	t_color;
 
-//struct
 // Ambient lightning:
 // A 0.2 255,255,255
 // ∗ identifier: A
@@ -37,7 +37,6 @@ typedef struct s_camera
 	float	fov; //lin modify
 }	t_camera;
 
-//======================== maybe also later ============================
 // ◦ Light:
 // L -40.0,50.0,0.0 0.6 10,0,255
 // ∗ identifier: L
@@ -69,7 +68,6 @@ typedef struct s_sphere
 	t_sphere	*next;
 }	t_sphere;
 
-//======================== WEEK 2 ONLY ============================
 // ◦ Plane:
 // pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
 // ∗ identifier: pl
@@ -87,7 +85,6 @@ typedef struct s_plane
 	t_plane		*next;
 }	t_plane;
 
-//======================== WEEK 2 ONLY ============================
 // ◦ Cylinder:
 // cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
 // ∗ identifier: cy
@@ -110,6 +107,7 @@ typedef struct s_cylinder
 	t_cylinder	*next;
 }				t_cylinder;
 
+// a ascene with everything inside
 typedef struct s_scene
 {
 	int			fd;
@@ -136,24 +134,26 @@ typedef struct s_scene
 //parsing_rt.c          3/5
 t_scene    *parsing(int ac, char **av);
 
-//parsing_line.c        3/5
+//parsing_line.c        4/5
 bool validating_parsing_line(char *line, t_scene *scene);
 
-// parsing_env.c
+// parsing_env.c     3/5
+// parsing lights and camera:
 bool    validate_parsing_tokens_a(char **tokens, t_scene *scene);
 bool    validate_parsing_tokens_c(char **tokens, t_scene *scene);
 bool    validate_parsing_tokens_l(char **tokens, t_scene *scene);
 
 //parsing_obj.c     3/5
+// parsing objects: sphere, plane and cylinder
 bool    validate_parsing_tokens_sp(char **tokens, t_scene *scene);
 bool    validate_parsing_tokens_pl(char **tokens, t_scene *scene);
 bool    validate_parsing_tokens_cy(char **tokens, t_scene *scene);
 
-//parsing_utils_1.c   4/5
+//parsing_utils_1.c   3/5
 float	ft_atoi_float(char *str);
 int	count_token_nbr(char **tokens);
 
-//parsing_utils_2.c   3/5
+//parsing_utils_2.c   5/5
 bool    do_color(char **colors, t_color *rgb);
 bool    do_normalized_vectoy(char **vec, t_vec3 *vec_nor);
 bool    do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
