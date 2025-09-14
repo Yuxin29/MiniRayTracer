@@ -13,7 +13,7 @@ static bool	validate_tokens(char **tokens, t_scene *scene)
 	if (ft_strncmp(tokens[0], "sp", 2) == 0)
 		return (validate_parsing_tokens_sp(tokens, scene));
 	if (ft_strncmp(tokens[0], "pl", 2) == 0)
-		return( validate_parsing_tokens_pl(tokens, scene));
+		return (validate_parsing_tokens_pl(tokens, scene));
 	if (ft_strncmp(tokens[0], "cy", 2) == 0)
 		return (validate_parsing_tokens_cy(tokens, scene));
 	return (false);
@@ -32,7 +32,7 @@ static bool	validate_tokens_nbr(char **tokens)
 	if (ft_strncmp(tokens[0], "C", 1) == 0 && nbr == 4)
 		return (true);
 	if (ft_strncmp(tokens[0], "L", 1) == 0 && nbr == 3)
-	 	return (true);
+		return (true);
 	if (ft_strncmp(tokens[0], "sp", 2) == 0 && nbr == 4)
 		return (true);
 	if (ft_strncmp(tokens[0], "pl", 2) == 0 && nbr == 4)
@@ -44,7 +44,7 @@ static bool	validate_tokens_nbr(char **tokens)
 
 static bool	validating_line_id(char *line)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(line);
 	if (*line && ft_isspace(*line)) //the line could be empty line
@@ -63,7 +63,6 @@ static bool	validating_line_id(char *line)
 		return (true);
 	return (false);
 }
-
 
 bool	validating_parsing_line(char *line, t_scene *scene)
 {

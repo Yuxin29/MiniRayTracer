@@ -7,7 +7,6 @@ static bool	check_file(char **av, t_scene *scene)
 	char	*ext;
 
 	ft_bzero(scene, sizeof(t_scene));
-	
 	ext = ft_strrchr(av[1], '.');
 	if (!ext || ft_strcmp(ext, ".rt") != 0)
 	{
@@ -25,7 +24,7 @@ static bool	check_file(char **av, t_scene *scene)
 
 //check if ac nbr correct and malloc for scene succcessful
 //then call the check file
-static t_scene *precheck_av(int ac, char **av)
+static t_scene	*precheck_av(int ac, char **av)
 {
 	t_scene	*scene;
 
@@ -55,7 +54,7 @@ t_scene	*parsing(int ac, char **av)
 {
 	char	*raw_line;
 	char	*line;
-	t_scene *scene;
+	t_scene	*scene;
 
 	scene = precheck_av(ac, av);
 	if (!scene)
@@ -65,7 +64,7 @@ t_scene	*parsing(int ac, char **av)
 		raw_line = get_next_line(scene->fd);
 		if (!raw_line)
 			break ;
-		line = ft_strtrim(raw_line, "\n"); //might be other change line, need to null check
+		line = ft_strtrim(raw_line, "\n"); //null check
 		free (raw_line);
 		if (!line)
 		{

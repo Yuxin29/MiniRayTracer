@@ -13,7 +13,7 @@ void	free_three_arr(char **vec_1, char **vec_2, char **colors)
 
 int	count_token_nbr(char **tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i])
@@ -21,7 +21,7 @@ int	count_token_nbr(char **tokens)
 	return (i);
 }
 
-static float get_decimal(char   *str, double number)
+static float	get_decimal(char *str, double number)
 {
 	float	decimal;
 	float	fraction;
@@ -39,6 +39,7 @@ static float get_decimal(char   *str, double number)
 	return (number);
 }
 
+//float max? is it needed
 float	ft_atoi_float(char *str)
 {
 	float	sign;
@@ -61,6 +62,5 @@ float	ft_atoi_float(char *str)
 	}
 	if (*str == '.')
 		number = get_decimal((char *)str, number);
-	//float max? is it needed
 	return (number * sign);
 }

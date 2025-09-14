@@ -1,7 +1,13 @@
 #ifndef PARSING_H
 # define PARSING_H
 
+//headers
 #include "miniRT.h"
+#include "utils.h"
+
+//libs
+#include <fcntl.h>      //open
+#include <stdio.h>      //printf for testing
 
 //struct
 typedef struct s_color
@@ -18,9 +24,9 @@ typedef struct s_color
 // ∗ R,G,B colors in range [0-255]: 255, 255, 255
 typedef struct s_a_light
 {
-    float   ratio;
-    t_color rgb;
-}	t_a_light;
+	float	ratio;
+	t_color	rgb;
+}			t_a_light;
 
 // ◦ Camera:
 // C -50.0,0,20 0,0,1 70
@@ -66,7 +72,7 @@ typedef struct s_sphere
 	float		radius; // lin modify
 	t_color		rgb;
 	t_sphere	*next;
-}	t_sphere;
+}				t_sphere;
 
 // ◦ Plane:
 // pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
@@ -101,7 +107,7 @@ typedef struct s_cylinder
 	t_vec3		cy_center;
 	t_vec3		cy_axis;
 	float		dia;
-    float		radius;
+	float		radius;
 	float		height;
 	t_color		rgb;
 	t_cylinder	*next;
@@ -124,39 +130,33 @@ typedef struct s_scene
 	mlx_image_t	*img;
 }	t_scene;
 
-//headers
-#include "utils.h"
-
-//libs
-#include <fcntl.h>      //open
-#include <stdio.h>      //printf for testing
-
 //parsing_rt.c          3/5
-t_scene    *parsing(int ac, char **av);
+t_scene	*parsing(int ac, char **av);
 
 //parsing_line.c        4/5
-bool validating_parsing_line(char *line, t_scene *scene);
+bool	validating_parsing_line(char *line, t_scene *scene);
 
 // parsing_env.c     3/5
 // parsing lights and camera:
-bool    validate_parsing_tokens_a(char **tokens, t_scene *scene);
-bool    validate_parsing_tokens_c(char **tokens, t_scene *scene);
-bool    validate_parsing_tokens_l(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_a(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_c(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_l(char **tokens, t_scene *scene);
 
 //parsing_obj.c     3/5
 // parsing objects: sphere, plane and cylinder
-bool    validate_parsing_tokens_sp(char **tokens, t_scene *scene);
-bool    validate_parsing_tokens_pl(char **tokens, t_scene *scene);
-bool    validate_parsing_tokens_cy(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_pl(char **tokens, t_scene *scene);
+bool	validate_parsing_tokens_cy(char **tokens, t_scene *scene);
 
 //parsing_utils_1.c   3/5
 float	ft_atoi_float(char *str);
-int 	count_token_nbr(char **tokens);
-void    free_three_arr(char **vec_1, char **vec_2, char **colors);
+int		count_token_nbr(char **tokens);
+void	free_three_arr(char **vec_1, char **vec_2, char **colors);
 
 //parsing_utils_2.c   5/5
-bool    do_color(char **colors, t_color *rgb);
-bool    do_normalized_vectoy(char **vec, t_vec3 *vec_nor);
-bool    do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
+bool	do_color(char **colors, t_color *rgb);
+bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor);
+bool	check_valid_float(char *vec);
+bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
 
 #endif
