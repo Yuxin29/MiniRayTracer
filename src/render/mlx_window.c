@@ -22,16 +22,19 @@ void render_scene(t_scene *scene)
     }
 }
 //remove to render later
-int	mlx_window(t_scene *scene)
+bool	mlx_window(t_scene *scene)
 {
 	//this part need to take out later
 	scene->mlx = mlx_init(WIDTH, HEIGHT, "miniRT_test", false);
 	if (!scene->mlx)
-   		return(err_msg_code("mlx_init failed\n", 0));
+    {   
+        ft_putstr_fd("mlx_init failed\n", 1);
+        return (false);
+    }
 	scene->img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
 	render_scene(scene);
 	mlx_loop(scene->mlx);                       	
 	//mlx_terminate(scene->mlx);
-	return (1);
+	return (true);
 }

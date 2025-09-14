@@ -81,7 +81,7 @@ t_scene	*parsing(int ac, char **av)
 			ft_free_scene(scene);
 			return (NULL);
 		}
-		if (line[0] && !validating_parsing_line(line, scene))
+		if (!validating_parsing_line(line, scene))
 			return (dealing_line_err(line, scene));
 		free (line);
 	}

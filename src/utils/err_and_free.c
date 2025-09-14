@@ -2,12 +2,7 @@
 #include "miniRT.h"
 #include "parsing.h"
 
-int	err_msg_code(char *str, int n)
-{
-	if (str)
-		ft_putstr_fd(str, 1);
-	return (n);
-}
+
 
 //free linked list objects
 static void	ft_free_linked_objects(t_scene *scene)

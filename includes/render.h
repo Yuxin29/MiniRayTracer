@@ -10,10 +10,9 @@ typedef struct s_scene t_scene;
 #include "parsing.h"
 
 // //keyboard.c
-// int err_msg_code(char *str, int n);
 // void    ft_free_scene(t_scene *scene);
 
 //mlx_window.c
-int	mlx_window(t_scene *scene);
+bool	mlx_window(t_scene *scene);
 
 #endif
