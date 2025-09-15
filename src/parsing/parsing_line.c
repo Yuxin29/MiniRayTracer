@@ -4,7 +4,7 @@
 void	ft_free_scene(t_scene *scene)
 {
 	t_object	*obj_tmp;
-		
+
 	if (!scene)
 		return ;
 	while (scene->objects)
@@ -67,7 +67,7 @@ static bool	validating_line_id_and_nbr(char **tokens)
 	return (false);
 }
 
-bool add_obj_to_scene(t_scene *scene, t_obj_type type, void *data)
+bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data)
 {
 	t_object	*obj;
 	t_object	*tmp;

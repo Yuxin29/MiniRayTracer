@@ -130,14 +130,17 @@ bool	validating_parsing_line(char *line, t_scene *scene);
 bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data);
 void	ft_free_scene(t_scene *scene);
 
-// parsing_env.c     5/5
-// parsing a_light, camera, light and sphere:
+// parsing_env.c     3/5
+// parsing a_light, camera, light:
 bool	validate_parsing_tokens_a(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_c(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_l(char **tokens, t_scene *scene);
+
+//parsing_obj_1.c     3/5
+// parsing sphere:
 bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene);
 
-//parsing_obj.c     5/5
+//parsing_obj_2.c     5/5
 // parsing objects: plane and cylinder
 bool	validate_parsing_tokens_pl(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_cy(char **tokens, t_scene *scene);
