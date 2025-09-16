@@ -10,13 +10,6 @@
 #include <fcntl.h>      //open
 #include <stdio.h>      //printf for testing
 
-//struct
-typedef struct s_color
-{
-    int     r;
-    int     g;
-    int     b;
-}	t_color;
 
 // Ambient lightning: A 0.2 255,255,255
 // ∗ identifier: A
@@ -43,7 +36,7 @@ typedef struct s_light
 typedef enum s_obj_type
 {
 	OBJ_SP,
-	OBJ_PL, 
+	OBJ_PL,
 	OBJ_CY,
 }	t_obj_type;
 

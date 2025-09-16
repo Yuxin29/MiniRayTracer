@@ -7,27 +7,34 @@
 // I write this prototype here just as a starting point
 // the color of each pixel will be calulated by lin
 //0xAAFF1111, Transparency + rgb
-void render_scene(t_scene *scene)
+void	render_scene(t_scene *scene)
 {
-    int x;
-    int y;
+	int				x;
+	int				y;
+	t_ray			ray;
+	t_camera_view	view;
+	t_hit_record	rec;
+	t_color			c;
 
-    x = 0;
-    while (x < WIDTH)
-    {
-        y = 0;
-        while (y < HEIGHT / 2)
-        {
-            mlx_put_pixel(scene->img, x, y, 0xAAFF1111);
-            y++;
-        }
-        while (y < HEIGHT)
-        {
-            mlx_put_pixel(scene->img, x, y, 0xBBAAFF55);
-            y++;
-        }
-        x++;
-    }
+	init_viewport(&scene->cam, &view);
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ray = generate_primary_ray(x, y, &view);
+			if (hit_objects(ray, scene->objects, &rec))
+			{
+				c = rec.rgb;
+				mlx_put_pixel(scene->img, x, y, (c.r << 24 | c.g << 16 | c.b << 8 | 255));
+			}
+			else
+				mlx_put_pixel(scene->img, x, y, 0x000000FF);
+			x++;
+		}
+		y++;
+	}
 }
 
 static void	close_window(void *param)
@@ -56,13 +63,13 @@ bool	mlx_window(t_scene *scene)
 	//this part need to take out later
 	scene->mlx = mlx_init(WIDTH, HEIGHT, "miniRT_test", false);
 	if (!scene->mlx)
-    {   
+    {
         ft_putstr_fd("mlx_init failed\n", 1);
         return (false);
     }
 	scene->img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
     if (!scene->img)
-	{   
+	{
         ft_putstr_fd("mlx_new image failed\n", 1);
         return (false);
     }

@@ -33,7 +33,7 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 	float	t1;
 	float	t2;
 
-	hit.oc = vec_sub(ray.origin, ray.direction);
+	hit.oc = vec_sub(ray.origin, sphere->sp_center);
 	hit.a = vec_dot(ray.direction, ray.direction);
 	hit.b = 2.0f * vec_dot(hit.oc, ray.direction);
 	hit.c = vec_dot(hit.oc, hit.oc) - sphere->radius * sphere->radius;

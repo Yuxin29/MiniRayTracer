@@ -2,7 +2,21 @@
 # define RAYTRACE_H
 
 # include "miniRT.h"
+//# include "parsing.h"
 # include <math.h>
+
+typedef struct s_object t_object;
+typedef struct s_sphere t_sphere;
+//typedef struct s_color t_color;
+
+//struct
+//lin modify type, 8 bits for each color instead of using 32 bits(int) for each color
+typedef struct s_color
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+}	t_color;
 
 typedef struct s_ray
 {
@@ -15,7 +29,7 @@ typedef struct s_hit_record
 	float	t; //t represents how far along the ray we go to reach the hit point.
 	t_vec3	point; //hit point
 	t_vec3	normal; //A normal is a vector that points perpendicular to the surface at a specific point.
-
+	t_color	rgb; //0916modify
 }	t_hit_record;
 
 typedef struct s_sphere_hit_info
@@ -59,9 +73,13 @@ typedef struct s_camera_view
 }	t_camera_view;
 
 t_vec3	ray_at(t_ray a, float t);
+bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
+
 t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 void	init_viewport(t_camera *cam, t_camera_view *view);
 t_ray	generate_primary_ray(int x, int y, t_camera_view *view);
+
+bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 
 #endif

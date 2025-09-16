@@ -42,6 +42,11 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up)
 sin(θ) = Opposite / Hypotenuse
 cos(θ) = Adjacent / Hypotenuse
 tan(θ) = Opposite / Adjacent
+
+center = cam->position + forward * 1.0
+viewport_origin = center
+	+ up * (viewport_height / 2)//move up
+	- right * (viewport_width / 2)//move left
 */
 void	init_viewport(t_camera *cam, t_camera_view *view)
 {
@@ -49,7 +54,7 @@ void	init_viewport(t_camera *cam, t_camera_view *view)
 	float	fov_rad;
 	t_vec3	center;
 
-	aspect_ratio = WIDTH / HEIGHT;
+	aspect_ratio = (float)WIDTH / HEIGHT;
 	fov_rad = cam->fov * M_PI / 180.0f;
 	view->viewport_height = 2 * tan(fov_rad / 2.0f);
 	view->viewport_width = view->viewport_height * aspect_ratio;
@@ -58,7 +63,7 @@ void	init_viewport(t_camera *cam, t_camera_view *view)
 	init_camera_frame(cam, &view->right, &view->up);
 	center = vec_add(cam->v_point, vec_scale(view->forward, 1.0f));
 	view->viewport_origin = vec_add(center, vec_scale(view->up, view->viewport_height / 2));
-	view->viewport_origin = vec_add(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2));
+	view->viewport_origin = vec_sub(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2));
 }
 /*
 Each pixel corresponds to a point on the viewport.
@@ -78,10 +83,11 @@ t_ray	generate_primary_ray(int x, int y, t_camera_view *view)
 	t_vec3	pixel_pos;
 	t_ray	ray;
 
-	u = (float)x / WIDTH - 1;
-	v = (float)y / HEIGHT - 1;
+	u = (float)x / (WIDTH - 1);
+	v = (float)y / (HEIGHT - 1);
 	pixel_pos = vec_add(view->viewport_origin, vec_scale(view->right, u * view->viewport_width));
 	pixel_pos = vec_sub(pixel_pos, vec_scale(view->up, v * view->viewport_height));
 	ray.origin = view->camera_origin;
 	ray.direction = vec_normalize(vec_sub(pixel_pos, ray.origin));
+	return (ray);
 }
