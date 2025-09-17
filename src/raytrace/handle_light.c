@@ -17,7 +17,7 @@ uint8_t * float => float, but unit8_t is int;
 so i should cast the value to int before do clamp
 ambient_color = object_color * ambient_light_color * ambient_ratio;
 */
-t_color apply_ambient(t_color obj_color, t_a_light amb)
+static t_color apply_ambient(t_color obj_color, t_a_light amb)
 {
 	t_color result;
 
@@ -34,7 +34,7 @@ final_color = ambient + (obj_color.r * light_color.r/255 * brightness * diffuse_
 N = surface normal at the hit point
 L = direction to the light
 */
-t_color	apply_diffuse(t_light light, t_hit_record rec)
+static t_color	apply_diffuse(t_light light, t_hit_record rec)
 {
 	float	diffuse_strength;
 	t_vec3	light_dir;

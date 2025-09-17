@@ -1,56 +1,78 @@
-#include "miniRT.h"
+#include	"miniRT.h"
 #include "parsing.h"
 #include    "render.h"
 
+// //test version for compiling
+
+int main(int ac, char **av)
+{
+	t_scene	*scene;
+
+    //parsing
+    scene = parsing(ac, av);
+	if (!scene)
+		return(-1); //erro msg sent in parsing
+
+	//remove later
+	//ft_print_scene(scene); //testing. remove later
+
+	// // mlx
+	if (!mlx_window(scene))
+	{
+		ft_putstr_fd("mlx initiation failed\n", 1);
+		return (-1);
+	}
+    return (0);
+}
 
 //==========================lin test===========================
-void	add_object(t_object **list, t_obj_type type, void *data)
-{
-	t_object	*new;
+// void	add_object(t_object **list, t_obj_type type, void *data)
+// {
+// 	t_object	*new;
 
-	new = malloc(sizeof(t_object));
-	if (!new)
-		return ;
-	new->type = type;
-	new->data = data;
-	new->next = *list;
-	*list = new;
-}
+// 	new = malloc(sizeof(t_object));
+// 	if (!new)
+// 		return ;
+// 	new->type = type;
+// 	new->data = data;
+// 	new->next = *list;
+// 	*list = new;
+// }
 
-void	setup_scene(t_scene *scene)
-{
-	t_sphere *s = malloc(sizeof(t_sphere));
-	s->sp_center = vec3(0, 0, -5);
-	s->radius = 1.0f;
-	s->rgb = (t_color){255, 0, 0};
-	add_object(&scene->objects, OBJ_SP, s);
-}
+// void	setup_scene(t_scene *scene)
+// {
+// 	t_sphere *s = malloc(sizeof(t_sphere));
+// 	s->sp_center = vec3(0, 0, -5);
+// 	s->radius = 1.0f;
+// 	s->rgb = (t_color){255, 0, 0};
+// 	add_object(&scene->objects, OBJ_SP, s);
+// }
 
-int	main(void)
-{
-	t_scene			scene;
+// int	main(void)
+// {
+// 	t_scene			scene;
 
-	scene.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false);
-	scene.img = mlx_new_image(scene.mlx, WIDTH, HEIGHT);
-	scene.objects = NULL;
+// 	scene.mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false);
+// 	scene.img = mlx_new_image(scene.mlx, WIDTH, HEIGHT);
+// 	scene.objects = NULL;
 
-	scene.cam.v_point = vec3(0, 0, 0);
-	scene.cam.v_orien = vec3(0, 0, -1);
-	scene.cam.fov = 70;
-	scene.ambient_light.ratio = 0.5f;
-	scene.ambient_light.rgb = (t_color){220, 20, 180};
-	scene.light.br_ratio = 0.8f;
-	scene.light.l_point = vec3(10, 20, 0);
-	scene.light.rgb = (t_color){250, 20, 35};
-	setup_scene(&scene);
+// 	scene.cam.v_point = vec3(0, 0, 0);
+// 	scene.cam.v_orien = vec3(0, 0, -1);
+// 	scene.cam.fov = 70;
+// 	scene.ambient_light.ratio = 0.5f;
+// 	scene.ambient_light.rgb = (t_color){220, 20, 180};
+// 	scene.light.br_ratio = 0.8f;
+// 	scene.light.l_point = vec3(10, 20, 0);
+// 	scene.light.rgb = (t_color){250, 20, 35};
+// 	setup_scene(&scene);
 
-	render_scene(&scene);
+// 	render_scene(&scene);
 
-	mlx_image_to_window(scene.mlx, scene.img, 0, 0);
-	mlx_loop(scene.mlx);
-	mlx_terminate(scene.mlx);
-	return (0);
-}
+// 	mlx_image_to_window(scene.mlx, scene.img, 0, 0);
+// 	mlx_loop(scene.mlx);
+// 	mlx_terminate(scene.mlx);
+// 	return (0);
+// }
 
 // test printing delete alter
 // =======================================================
@@ -146,26 +168,5 @@ int	main(void)
 // 	printf("===== END OF SCENE PRINT =====\n\n");
 // }
 // //=======================================================
-// //test version for compiling
 
-// int main(int ac, char **av)
-// {
-// 	t_scene	*scene;
-
-//     //parsing
-//     scene = parsing(ac, av);
-// 	if (!scene)
-// 		return(-1); //erro msg sent in parsing
-
-// 	//remove later
-// 	//ft_print_scene(scene); //testing. remove later
-
-// 	// // mlx
-// 	if (!mlx_window(scene))
-// 	{
-// 		ft_putstr_fd("mlx initiation failed\n", 1);
-// 		return (-1);
-// 	}
-//     return (0);
-// }
 

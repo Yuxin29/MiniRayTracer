@@ -3,6 +3,9 @@
 
 /*
 Ray equation:P(t) = O + tD
+why? :  we need to find “where” a ray hits something, this function calculates that point.
+A ray is a half-infinite line in 3D space, starting from a point and going in a direction.
+
 Sphere equation (center C, radius r): ||P(t) - C||² = r²
 Substitute the ray into the sphere equation:||O + tD - C||² = r²
 Simplify: Let: oc = O - C
@@ -49,7 +52,7 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 	else
 		return (false);
 	rec->t = hit.t;
-	rec->point = ray_at(ray, hit.t);
+	rec->point = vec_add(ray.origin, vec_scale(ray.direction, rec->t));
 	rec->normal = vec_normalize(vec_sub(rec->point, sphere->sp_center));
 	return (true);
 }

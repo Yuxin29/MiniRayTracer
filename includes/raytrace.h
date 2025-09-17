@@ -84,11 +84,12 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 void	init_viewport(t_camera *cam, t_camera_view *view);
 t_ray	generate_primary_ray(int x, int y, t_camera_view *view);
 
+//hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
-t_color	apply_ambient(t_color obj_color, t_a_light amb);
-t_color	apply_diffuse(t_light light, t_hit_record rec);
-t_color	final_color(t_color obj_color, t_a_light amb, t_light light, t_hit_record rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
+//handle_light
+t_color	final_color(t_color obj_color, t_a_light amb, t_light light, t_hit_record rec);
+
 
 
 #endif
