@@ -37,7 +37,7 @@ typedef struct s_hit_record
 	t_color	rgb; //0916modify
 }	t_hit_record;
 
-typedef struct s_sphere_hit_info
+typedef struct s_hit_info
 {
 	t_vec3	oc;
 	float	a;
@@ -45,7 +45,7 @@ typedef struct s_sphere_hit_info
 	float	c;
 	float	discriminant;
 	float	t;
-}	t_sphere_hit_info;
+}	t_hit_info;
 
 // ◦ Camera:
 // C -50.0,0,20 0,0,1 70

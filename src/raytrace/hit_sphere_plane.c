@@ -32,7 +32,7 @@ We want the first visible intersection — the front of the object.
 */
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 {
-	t_sphere_hit_info	hit;
+	t_hit_info	hit;
 	float	t1;
 	float	t2;
 

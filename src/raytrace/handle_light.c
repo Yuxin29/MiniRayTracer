@@ -66,3 +66,12 @@ t_color	final_color(t_color obj_color, t_a_light amb, t_light light, t_hit_recor
 	final.b = clamp(ambient.b + diffuse.b, 0, 255);
 	return (final);
 }
+
+
+/*
+shadow_origin = rec.p + rec.normal * EPSILON;
+
+Build a ray from shadow_origin toward the light position:
+shadow Direction = light dir = normalized(light_position - hit_point).
+light Length = distance between hit_point and light.
+*/
