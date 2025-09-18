@@ -100,6 +100,8 @@ typedef struct s_cylinder
 typedef struct s_scene
 {
 	int			fd;
+	int32_t		width;
+	int32_t		height;
 	t_a_light	ambient_light;
 	t_camera	cam;
 	t_light		light;

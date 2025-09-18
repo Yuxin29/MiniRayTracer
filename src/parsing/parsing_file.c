@@ -69,6 +69,8 @@ t_scene	*parsing(int ac, char **av)
 	scene = precheck_av(ac, av);
 	if (!scene)
 		return (NULL);
+	scene->width = WIDTH;
+	scene->height = HEIGHT;
 	while (1)
 	{
 		raw_line = get_next_line(scene->fd);

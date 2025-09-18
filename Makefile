@@ -26,7 +26,7 @@ MLX_FLAGS := -L$(MLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
 #-L linker search path
 #-l link with library
 
-all: $(LIBFT_LIB) $(MLX_LIB) $(NAME)
+all: $(LIBFT_LIB) $(MLX_LIB) $(NAME) 
 
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
