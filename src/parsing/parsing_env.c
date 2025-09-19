@@ -9,6 +9,8 @@ bool	validate_parsing_tokens_a(char **tokens, t_scene *scene)
 {
 	char	**colors;
 
+	if (scene->al_existence == true)
+		return (false);
 	ft_bzero(&scene->ambient_light, sizeof(t_a_light));
 	if (check_valid_float(tokens[1]))
 		scene->ambient_light.ratio = ft_atoi_float(tokens[1]);
@@ -24,6 +26,7 @@ bool	validate_parsing_tokens_a(char **tokens, t_scene *scene)
 		return (false);
 	}
 	ft_free_arr(colors);
+	scene->al_existence = true;
 	return (true);
 }
 
@@ -37,6 +40,8 @@ bool	validate_parsing_tokens_c(char **tokens, t_scene *scene)
 	char	**vec_1;
 	char	**vec_2;
 
+	if (scene->c_existence == true)
+		return (false);
 	ft_bzero(&scene->cam, sizeof(t_camera));
 	if (check_valid_float(tokens[3]))
 		scene->cam.fov = ft_atoi_float(tokens[3]);
@@ -53,6 +58,7 @@ bool	validate_parsing_tokens_c(char **tokens, t_scene *scene)
 		return (false);
 	}
 	free_three_arr(vec_1, vec_2, NULL);
+	scene->c_existence = true;
 	return (true);
 }
 
@@ -66,6 +72,8 @@ bool	validate_parsing_tokens_l(char **tokens, t_scene *scene)
 {
 	char	**vec;
 
+	if (scene->l_existence == true)
+		return (false);
 	ft_bzero(&scene->light, sizeof(t_light));
 	if (check_valid_float(tokens[2]))
 		scene->light.br_ratio = ft_atoi_float(tokens[2]);
@@ -84,5 +92,6 @@ bool	validate_parsing_tokens_l(char **tokens, t_scene *scene)
 	scene->light.rgb.r = 255;
 	scene->light.rgb.g = 255;
 	scene->light.rgb.b = 255;
+	scene->l_existence = true;
 	return (true);
 }

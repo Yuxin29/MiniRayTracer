@@ -83,7 +83,9 @@ static t_vec3	vec_rotate(t_vec3 v, t_vec3 k, float angle)
 	v_3 = vec_scale(k, vec_dot(k, v) * (1 - cos(angle)));
 	return (vec_add(v_1, vec_add(v_2, v_3)));
 }
-
+//Your program must be able to apply translation and rotation transformation 
+// toobjects, lights and cameras 
+// (except for spheres and lights that cannot be rotated).
 void	change_rotation(t_scene *scene, t_vec3 y_axis, float angle)
 {
 	t_object	*cur;

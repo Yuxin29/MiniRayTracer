@@ -95,6 +95,11 @@ bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data)
 	return (true);
 }
 
+// sub
+// Each type of element can be separated by one or more line break(s).
+// ◦ Elements which are defined by a capital letter 
+// can only be declared once in the scene.
+// -> it coulld the empty space or self_defined
 bool	validating_parsing_line(char *line, t_scene *scene)
 {
 	char	**tokens;

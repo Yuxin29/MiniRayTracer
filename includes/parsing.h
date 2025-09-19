@@ -100,6 +100,9 @@ typedef struct s_scene
 	t_a_light	ambient_light;
 	t_camera	cam;
 	t_light		light;
+	bool		al_existence;
+	bool		c_existence;
+	bool		l_existence;
 	t_object	*objects;
 	mlx_t		*mlx;
 	mlx_image_t	*img;

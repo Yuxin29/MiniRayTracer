@@ -44,8 +44,12 @@ static void	render_scene_loop(void *param)
 	}
 }
 
-//handling resizing
-// incase of resizing, update the scene width and height can recall render scene
+// sub: 
+// When you change the resolution of the window, 
+// the content of the window must remain unchanged and be adjusted accordingly.
+// inplementation: 
+// incase of resizing, update the scene width and height
+// and can recall render scene repeatedly
 static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 {
 	t_scene	*scene;

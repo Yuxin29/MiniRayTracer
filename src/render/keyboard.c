@@ -2,6 +2,9 @@
 #include "render.h"
 #include "parsing.h"
 
+
+// Clicking on the red cross on the window’s frame 
+// must close the window and quit the program cleanly.
 void	close_window(void *param)
 {
 	t_scene	*scene;
@@ -48,6 +51,7 @@ static void	scale_keys(mlx_key_data_t keydata, t_scene *scene)
 	}
 }
 
+// we assume the rotate always happengin around the vertical axit
 static void	rotate_keys(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_vec3	y_axis;
@@ -65,6 +69,7 @@ static void	rotate_keys(mlx_key_data_t keydata, t_scene *scene)
 	}
 }
 
+//Pressing ESC must close the window and quit the program cleanly.
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_scene	*scene;

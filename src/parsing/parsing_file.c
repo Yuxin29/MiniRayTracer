@@ -1,6 +1,9 @@
 #include "miniRT.h"
 #include "parsing.h"
 
+//sub 
+// Your program must take as a first argument 
+// a scene description file with the .rt extension.
 //check if file suffix valid // open file successful
 static bool	check_file(char **av, t_scene *scene)
 {
@@ -23,6 +26,7 @@ static bool	check_file(char **av, t_scene *scene)
 }
 
 //check if ac nbr correct and malloc for scene succcessful
+// initianize need_loop and the default height and width
 //then call the check file
 static t_scene	*precheck_av(int ac, char **av)
 {
@@ -47,9 +51,15 @@ static t_scene	*precheck_av(int ac, char **av)
 	scene->width = WIDTH;
 	scene->height = HEIGHT;
 	scene->need_loop = true;
+	scene->al_existence = false;
+	scene->c_existence = false;
+	scene->l_existence = false;
 	return (scene);
 }
 
+// in case of error happening in one the the line,
+// print error msg and the error line
+// free the line and screen
 static t_scene	*dealing_line_err(char *line, t_scene *scene)
 {
 	ft_putstr_fd("Invalid line in the file: ", 1);
