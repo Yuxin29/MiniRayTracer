@@ -74,12 +74,16 @@ bool	validate_parsing_tokens_l(char **tokens, t_scene *scene)
 	if (scene->light.br_ratio < 0 || scene->light.br_ratio > 1)
 		return (false);
 	vec = ft_split(tokens[1], ',');
-	if (!do_xyz_vectoy(vec, &scene->light.l_point))
-	{
-		if (vec)
-			ft_free_arr(vec);
-		return (false);
-	}
+	// if (!do_xyz_vectoy(vec, &scene->light.l_point))
+	// {
+	// 	if (vec)
+	// 		ft_free_arr(vec);
+	// 	return (false);
+	// }
+	scene->light.l_point.x = -ft_atoi_float(vec[0]); //should modify
+	scene->light.l_point.y = ft_atoi_float(vec[1]);
+	scene->light.l_point.z = ft_atoi_float(vec[2]);
+
 	ft_free_arr(vec);
 	scene->light.rgb.r = 255;
 	scene->light.rgb.g = 255;

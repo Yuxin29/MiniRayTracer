@@ -1,12 +1,6 @@
 #include "miniRT.h"
 
-//Mathematically: P(t)=origin+t⋅direction
-//why? :  we need to find “where” a ray hits something, this function calculates that point.
-//A ray is a half-infinite line in 3D space, starting from a point and going in a direction.
-t_vec3	ray_at(t_ray a, float t)
-{
-	return (vec_add(a.origin, vec_scale(a.direction, t)));
-}
+
 
 static bool	update_hit_record(t_hit_record *tmp, float *closest_t, t_hit_record *rec, t_object *obj)
 {

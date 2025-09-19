@@ -14,8 +14,9 @@ SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing_utils_1.c $(SRC_DIR)/parsing/parsing_utils_2.c \
 		$(SRC_DIR)/render/mlx_window.c $(SRC_DIR)/render/keyboard.c $(SRC_DIR)/render/change_scene.c \
 		$(SRC_DIR)/utils/vector.c\
-		$(SRC_DIR)/raytrace/hit_obj.c $(SRC_DIR)/raytrace/ray_at.c $(SRC_DIR)/raytrace/camera_ray.c \
-		$(SRC_DIR)/raytrace/handle_light.c \
+		$(SRC_DIR)/raytrace/hit_sphere_plane.c $(SRC_DIR)/raytrace/hit_objects.c \
+		$(SRC_DIR)/raytrace/camera_ray.c $(SRC_DIR)/raytrace/handle_light.c \
+		$(SRC_DIR)/raytrace/handle_shadow.c \
 
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

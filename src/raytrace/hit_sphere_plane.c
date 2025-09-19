@@ -3,6 +3,9 @@
 
 /*
 Ray equation:P(t) = O + tD
+why? :  we need to find “where” a ray hits something, this function calculates that point.
+A ray is a half-infinite line in 3D space, starting from a point and going in a direction.
+
 Sphere equation (center C, radius r): ||P(t) - C||² = r²
 Substitute the ray into the sphere equation:||O + tD - C||² = r²
 Simplify: Let: oc = O - C
@@ -29,7 +32,7 @@ We want the first visible intersection — the front of the object.
 */
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 {
-	t_sphere_hit_info	hit;
+	t_hit_info	hit;
 	float	t1;
 	float	t2;
 
@@ -42,14 +45,14 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 		return (false);
 	t1 = (-hit.b - sqrt(hit.discriminant)) / (2.0f * hit.a);
 	t2 = (-hit.b + sqrt(hit.discriminant)) / (2.0f * hit.a);
-	if (t1 > 0)
+	if (t1 > EPSILON) //?
 		hit.t = t1;
-	else if (t2 > 0)
+	else if (t2 > EPSILON)
 		hit.t = t2;
 	else
 		return (false);
 	rec->t = hit.t;
-	rec->point = ray_at(ray, hit.t);
+	rec->point = vec_add(ray.origin, vec_scale(ray.direction, rec->t));
 	rec->normal = vec_normalize(vec_sub(rec->point, sphere->sp_center));
 	return (true);
 }

@@ -72,8 +72,8 @@ bool	check_valid_float(char *str)
 	return (true);
 }
 
-// x, y, z recommended Range : `-1000 ~ +1000` 
-// Enough space to place multiple objects and move the camera around  
+// x, y, z recommended Range : `-1000 ~ +1000`
+// Enough space to place multiple objects and move the camera around
 bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz)
 {
 	int	i;
@@ -98,9 +98,9 @@ bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz)
 	return (true);
 }
 
-// 3d normalized orientation vector. 
+// 3d normalized orientation vector.
 // In range [-1,1] for each x,y,z axis
-bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor)
+bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor) //should modify?
 {
 	int	i;
 

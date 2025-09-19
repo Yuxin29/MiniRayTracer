@@ -19,7 +19,7 @@ typedef struct s_a_light
 {
 	float	ratio;
 	t_color	rgb;
-}			t_a_light;
+}	t_a_light;
 
 // ◦ Light:  L -40.0,50.0,0.0 0.6 10, 0, 255
 // ∗ identifier: L
@@ -40,35 +40,31 @@ typedef enum s_obj_type
 	OBJ_CY,
 }	t_obj_type;
 
-typedef struct s_object t_object;
-
 typedef struct s_object
 {
 	t_obj_type			type;
 	void				*data;
 	struct	s_object	*next;
-}						t_object;
+}	t_object;
 
 // ◦ Sphere: sp 0.0,0.0,20.6 12.6 10,0,255
 // ∗ identifier: sp
 // ∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
 // ∗ the sphere dmeter: 12.6
 // ∗ R,G,B colors in range [0-255]: 10, 0, 255
-typedef struct s_sphere t_sphere;
 
 typedef struct s_sphere
 {
 	t_vec3		sp_center;
 	float		radius; // lin modify
 	t_color		rgb;
-}				t_sphere;
+}	t_sphere;
 
 // ◦ Plane: pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
 // ∗ identifier: pl
 // ∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
 // ∗ 3d normalized vector. In range [-1,1]: 0.0,1.0,0.0
 // ∗ R,G,B colors in range [0-255]: 0,0,225
-typedef struct s_plane t_plane;
 
 typedef struct s_plane
 {
@@ -85,7 +81,6 @@ typedef struct s_plane
 // ∗ the cylinder diameter: 14.2
 // ∗ the cylinder height: 21.42
 // ∗ R,G,B colors in range [0,255]: 10, 0, 255
-typedef struct s_cylinder t_cylinder;
 
 typedef struct s_cylinder
 {
@@ -94,7 +89,7 @@ typedef struct s_cylinder
 	float		radius;
 	float		height;
 	t_color		rgb;
-}				t_cylinder;
+}	t_cylinder;
 
 // a ascene with everything inside
 typedef struct s_scene

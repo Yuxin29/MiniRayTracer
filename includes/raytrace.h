@@ -37,7 +37,7 @@ typedef struct s_hit_record
 	t_color	rgb; //0916modify
 }	t_hit_record;
 
-typedef struct s_sphere_hit_info
+typedef struct s_hit_info
 {
 	t_vec3	oc;
 	float	a;
@@ -45,7 +45,7 @@ typedef struct s_sphere_hit_info
 	float	c;
 	float	discriminant;
 	float	t;
-}	t_sphere_hit_info;
+}	t_hit_info;
 
 // ◦ Camera:
 // C -50.0,0,20 0,0,1 70
@@ -77,7 +77,6 @@ typedef struct s_camera_view
 	t_vec3	camera_origin;
 }	t_camera_view;
 
-t_vec3	ray_at(t_ray a, float t);
 bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
 
 t_vec3	vec3(float x, float y, float z);
@@ -88,13 +87,12 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 void	init_viewport(t_camera *cam, t_camera_view *view,   int32_t width, int32_t height);
 t_ray	generate_primary_ray(int x, int y, t_camera_view *view,  int32_t width, int32_t height);
 
+//hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
-
-t_color	apply_ambient(t_color obj_color, t_a_light amb);
-t_color	apply_diffuse(t_light light, t_hit_record rec);
-t_color	final_color(t_color obj_color, t_a_light amb, t_light light, t_hit_record rec);
-bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
-
+//handle_light
+t_color	final_color(t_color obj_color, t_scene *scene, t_hit_record rec);
+//handle_shadow
+bool	is_in_shadow(t_hit_record rec, t_light light, t_object *obj);
 
 #endif

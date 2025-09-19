@@ -3,6 +3,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
+#define EPSILON 1e-4
 
 typedef struct s_vec3
 {
