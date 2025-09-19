@@ -48,22 +48,20 @@ viewport_origin = center
 	+ up * (viewport_height / 2)//move up
 	- right * (viewport_width / 2)//move left
 */
-void	init_viewport(t_camera *cam, t_camera_view *view,  int32_t width, int32_t height)  //yuxin added flexible size
+void	init_viewport(t_scene *scene, t_camera_view *view)
 {
 	float	aspect_ratio;
 	float	fov_rad;
 	t_vec3	center;
 
-	aspect_ratio = (float) width / height; //yuxin changed, bacause in rezising we, need to recall inni view porint
-	//lin old version 
-	//aspect_ratio = WIDTH / HEIGHT;
-	fov_rad = cam->fov * M_PI / 180.0f;
+	aspect_ratio = (float) scene->width / scene->height;
+	fov_rad = scene->cam.fov * M_PI / 180.0f;
 	view->viewport_height = 2 * tan(fov_rad / 2.0f);
 	view->viewport_width = view->viewport_height * aspect_ratio;
-	view->camera_origin = cam->v_point;
-	view->forward = vec_normalize(cam->v_orien);
-	init_camera_frame(cam, &view->right, &view->up);
-	center = vec_add(cam->v_point, vec_scale(view->forward, 1.0f));
+	view->camera_origin = scene->cam.v_point;
+	view->forward = vec_normalize(scene->cam.v_orien);
+	init_camera_frame(&scene->cam, &view->right, &view->up);
+	center = vec_add(scene->cam.v_point, vec_scale(view->forward, 1.0f));
 	view->viewport_origin = vec_add(center, vec_scale(view->up, view->viewport_height / 2));
 	view->viewport_origin = vec_sub(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2));
 }
@@ -78,18 +76,15 @@ Sees what it hits
 Calculates the color (based on lighting, materials, etc.)
 Writes the color to the pixel
 */
-t_ray	generate_primary_ray(int x, int y, t_camera_view *view,  int32_t width, int32_t height)
+t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene)
 {
 	float	u;
 	float	v;
 	t_vec3	pixel_pos;
 	t_ray	ray;
 
-	u = (float)x / (width - 1);  //yuxin added flexible size
-	v = (float)y / (height - 1);  //yuxin added flexible size
-	//lin old version
-	// u = (float)x / WIDTH - 1;
-	// v = (float)y / HEIGHT - 1;
+	u = (float)x / (scene->width - 1);
+	v = (float)y / (scene->height - 1);
 	pixel_pos = vec_add(view->viewport_origin, vec_scale(view->right, u * view->viewport_width));
 	pixel_pos = vec_sub(pixel_pos, vec_scale(view->up, v * view->viewport_height));
 	ray.origin = view->camera_origin;

@@ -9,14 +9,14 @@ static void	render_scene(t_scene *scene)
 	int				y;
 	t_render_data	data;
 
-	init_viewport(&scene->cam, &data.view, scene->width, scene->height); //yuxin added flexible size
+	init_viewport(scene, &data.view); //yuxin added flexible size
 	y = 0;
 	while (y < scene->height)
 	{
 		x = 0;
 		while (x < scene->width)
 		{
-			data.ray = generate_primary_ray(x, y, &data.view, scene->width, scene->height);
+			data.ray = generate_primary_ray(x, y, &data.view, scene);
 			if (hit_objects(data.ray, scene->objects, &data.rec))
 			{
 				data.c = final_color(data.rec.rgb, scene, data.rec);
@@ -30,7 +30,7 @@ static void	render_scene(t_scene *scene)
 	}
 }
 
-// yuxin added this one, 
+// yuxin added this one,
 // to call render_scene repeatedly if the keyboard as pressed some valid buttoms
 static void	render_scene_loop(void *param)
 {
@@ -83,6 +83,7 @@ bool	mlx_window(t_scene *scene)
 	mlx_key_hook(scene->mlx, key_hook, scene); //Keyboard press/release
 	mlx_resize_hook(scene->mlx, handle_screen_resize, scene); //resizeing by mouse
 	mlx_close_hook(scene->mlx, close_window, scene);  //clicking red x
+
 	mlx_loop_hook(scene->mlx, render_scene_loop, scene);
 	mlx_loop(scene->mlx);
 	return (true);

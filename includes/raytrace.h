@@ -84,8 +84,8 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 // void	init_viewport(t_camera *cam, t_camera_view *view);
 // t_ray	generate_primary_ray(int x, int y, t_camera_view *view);
 //yuxin added flexible size
-void	init_viewport(t_camera *cam, t_camera_view *view,   int32_t width, int32_t height);
-t_ray	generate_primary_ray(int x, int y, t_camera_view *view,  int32_t width, int32_t height);
+void	init_viewport(t_scene *scene, t_camera_view *view);
+t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
 
 //hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
