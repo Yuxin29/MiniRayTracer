@@ -37,6 +37,11 @@ static void	render_scene_loop(void *param)
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
+	if (!scene->running)
+	{
+		ft_free_scene(scene); 
+		exit (0);
+	}
 	if (scene->need_loop)
 	{
 		render_scene(scene);

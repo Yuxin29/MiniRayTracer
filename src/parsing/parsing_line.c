@@ -106,6 +106,8 @@ bool	validating_parsing_line(char *line, t_scene *scene)
 
 	if (!line[0])
 		return (true);
+	if (scene->line_error == true)
+		return (false);
 	tokens = ft_split(line, ' ');
 	if (!validating_line_id_and_nbr(tokens))
 	{

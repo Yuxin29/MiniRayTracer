@@ -98,6 +98,8 @@ typedef struct s_scene
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	bool		need_loop;
+	bool		running;
+	bool		line_error;
 }	t_scene;
 
 //parsing_file.c          4/5

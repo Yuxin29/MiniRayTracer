@@ -9,7 +9,7 @@ void	close_window(void *param)
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
-	ft_free_scene(scene);
+	scene->running = false;
 }
 
 static void	move_keys(mlx_key_data_t keydata, t_scene *scene)
@@ -79,7 +79,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		return ;
 	}
 	if (keydata.key == MLX_KEY_ESCAPE)
-		close_window(scene);
+    close_window(scene);
 	move_keys(keydata, scene);
 	scale_keys(keydata, scene);
 	rotate_keys(keydata, scene);

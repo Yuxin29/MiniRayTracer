@@ -51,21 +51,20 @@ static t_scene	*precheck_av(int ac, char **av)
 	scene->width = WIDTH;
 	scene->height = HEIGHT;
 	scene->need_loop = true;
-	scene->al_existence = false;
-	scene->c_existence = false;
-	scene->l_existence = false;
+	scene->running = true;
+	// scene->al_existence = false;
+	// scene->c_existence = false;
+	// scene->l_existence = false;
 	return (scene);
 }
 
 // in case of error happening in one the the line,
 // print error msg and the error line
 // free the line and screen
-static t_scene	*dealing_line_err(char *line, t_scene *scene)
+static t_scene	*dealing_line_err(t_scene *scene)
 {
 	ft_putstr_fd("Error: Invalid line in the file: ", 1);
-	ft_putstr_fd(line, 1);
 	ft_putchar_fd('\n', 1);
-	free(line);
 	ft_free_scene(scene);
 	return (NULL);
 }
@@ -95,9 +94,10 @@ t_scene	*parsing(int ac, char **av)
 			return (NULL);
 		}
 		if (!validating_parsing_line(line, scene))
-			return (dealing_line_err(line, scene));
+			scene->line_error = true;
 		free (line);
 	}
-	close(scene->fd);
+	if (scene->line_error == true)
+		return (dealing_line_err(scene));
 	return (scene);
 }
