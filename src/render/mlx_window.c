@@ -13,14 +13,14 @@ void	render_scene(t_scene *scene)
 	int				y;
 	t_render_data	data;
 
-	init_viewport(&scene->cam, &data.view);
+	init_viewport(&scene->cam, &data.view, scene->width, scene->height); //yuxin added flexible size
 	y = 0;
 	while (y < scene->height)
 	{
 		x = 0;
 		while (x < scene->width)
 		{
-			data.ray = generate_primary_ray(x, y, &data.view);
+			data.ray = generate_primary_ray(x, y, &data.view, scene->width, scene->height);
 			if (hit_objects(data.ray, scene->objects, &data.rec))
 			{
 				data.c = final_color(data.rec.rgb, scene->ambient_light, scene->light, data.rec);
@@ -41,19 +41,7 @@ void	render_scene(t_scene *scene)
 static void render_scene_loop(void *param)
 {
     t_scene *scene = (t_scene *)param;
-	    
-	if (scene->need_resize)
-    {
-        mlx_delete_image(scene->mlx, scene->img);
-        scene->img = mlx_new_image(scene->mlx, scene->width, scene->height);
-        if (!scene->img)
-        {
-            ft_putstr_fd("mlx_new_image failed on resize\n", 2);
-            return;
-        }
-        mlx_image_to_window(scene->mlx, scene->img, 0, 0);
-		scene->need_resize = false;
-    }
+
 	if (scene->need_loop)
 	{
 		render_scene(scene);
@@ -61,15 +49,23 @@ static void render_scene_loop(void *param)
 	}
 }
 
+
 void	handle_screen_resize(int32_t width, int32_t height, void *param)
 {
 	t_scene	*scene;
 
 	scene = (t_scene *)param;
+    mlx_delete_image(scene->mlx, scene->img);
+    scene->img = mlx_new_image(scene->mlx, width, height);
+    if (!scene->img)
+    {
+        ft_putstr_fd("mlx_new_image failed on resize\n", 2);
+        return;
+    }
+    mlx_image_to_window(scene->mlx, scene->img, 0, 0);
 	scene->width = width;
     scene->height = height;
-    scene->need_loop = 1;
-	scene->need_resize = 1;
+	render_scene(scene);
 }
 
 

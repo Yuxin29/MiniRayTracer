@@ -82,8 +82,11 @@ bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
 
 t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
-void	init_viewport(t_camera *cam, t_camera_view *view);
-t_ray	generate_primary_ray(int x, int y, t_camera_view *view);
+// void	init_viewport(t_camera *cam, t_camera_view *view);
+// t_ray	generate_primary_ray(int x, int y, t_camera_view *view);
+//yuxin added flexible size
+void	init_viewport(t_camera *cam, t_camera_view *view,   int32_t width, int32_t height);
+t_ray	generate_primary_ray(int x, int y, t_camera_view *view,  int32_t width, int32_t height);
 
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
