@@ -28,8 +28,8 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up)
 	world_up = vec3(0, 1, 0);
 	if (fabs(vec_dot(forward, world_up)) > 0.999)
 		world_up = vec3(0, 0, 1);
-	*right = vec_normalize(vec_cross(forward, world_up));
-	*up = vec_cross(*right, forward);
+	*right = vec_normalize(vec_cross(world_up, forward));
+	*up = vec_normalize(vec_cross(forward, *right));
 }
 
 //The viewport is a 2D virtual plane in front of the camera, through which rays are cast into the 3D world
@@ -61,10 +61,12 @@ void	init_viewport(t_scene *scene, t_camera_view *view)
 	view->camera_origin = scene->cam.v_point;
 	view->forward = vec_normalize(scene->cam.v_orien);
 	init_camera_frame(&scene->cam, &view->right, &view->up);
-	center = vec_add(scene->cam.v_point, vec_scale(view->forward, 1.0f));
-	view->viewport_origin = vec_add(center, vec_scale(view->up, view->viewport_height / 2));
-	view->viewport_origin = vec_sub(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2));
+	center = vec_add(view->camera_origin, vec_scale(view->forward, 1.0f));
+	view->viewport_origin = center;
+	view->viewport_origin = vec_add(view->viewport_origin, vec_scale(view->up, view->viewport_height / 2.0f));
+	view->viewport_origin = vec_sub(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2.0f));
 }
+
 /*
 Each pixel corresponds to a point on the viewport.
 u,v: Pixel index → percentage across the screen
@@ -83,9 +85,8 @@ t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene)
 	t_vec3	pixel_pos;
 	t_ray	ray;
 
-	//u = (float)x / (scene->width - 1);
-	u = 1.0f - ((float)x / (scene->width - 1));
-	v = (float)y / (scene->height - 1);
+	u = ((float)x + 0.5f) / (scene->width - 1);
+	v = ((float)y + 0.5f) / (scene->height - 1);
 	pixel_pos = vec_add(view->viewport_origin, vec_scale(view->right, u * view->viewport_width));
 	pixel_pos = vec_sub(pixel_pos, vec_scale(view->up, v * view->viewport_height));
 	ray.origin = view->camera_origin;

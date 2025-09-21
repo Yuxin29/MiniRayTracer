@@ -45,12 +45,12 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 		return (false);
 	t1 = (-hit.b - sqrt(hit.discriminant)) / (2.0f * hit.a);
 	t2 = (-hit.b + sqrt(hit.discriminant)) / (2.0f * hit.a);
-	if (t1 > EPSILON) //?
+	if (t1 > EPSILON && (t1 < t2 || t2 <= EPSILON))
 		hit.t = t1;
 	else if (t2 > EPSILON)
 		hit.t = t2;
 	else
-		return (false);
+		return (false);;
 	rec->t = hit.t;
 	rec->point = vec_add(ray.origin, vec_scale(ray.direction, rec->t));
 	rec->normal = vec_normalize(vec_sub(rec->point, sphere->sp_center));

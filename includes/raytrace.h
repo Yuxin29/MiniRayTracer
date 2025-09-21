@@ -68,17 +68,20 @@ typedef struct s_camera_view
 {
 	float	viewport_width;
 	float	viewport_height;
+	t_vec3	viewport_origin;
 	t_vec3	forward;
 	t_vec3	right;
 	t_vec3	up;
-	t_vec3	viewport_origin;
 	t_vec3	camera_origin;
+	t_vec3	horizontal;
+	t_vec3	vertical;
 }	t_camera_view;
 
 bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
 
 t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
+
 void	init_viewport(t_scene *scene, t_camera_view *view);
 t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
 

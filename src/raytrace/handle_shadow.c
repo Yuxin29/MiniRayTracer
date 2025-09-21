@@ -10,22 +10,24 @@ shadow Direction = light dir = normalized(light_position - hit_point);
 how can i get t then?
 using hit_something by shadow ray;
 */
+
 static bool	hit_shadow(t_ray ray, t_object *obj, float max_len)
 {
 	t_hit_record	tmp;
-	float			t;
 
-	t = INFINITY;
 	while (obj)
 	{
 		if (obj->type == OBJ_SP && hit_sphere(ray, (t_sphere *)obj->data, &tmp))
-			t = tmp.t;
+		{
+			if (tmp.t > EPSILON && tmp.t < max_len)
+				return (true);
+		}
 		else if (obj->type == OBJ_PL && hit_plane(ray, (t_plane *)obj->data, &tmp))
-			t = tmp.t;
-		// else if (obj->type == OBJ_CY && hit_cylinder(ray, (t_cylinder *)obj->data, &tmp))
-			// 	t = tmp.t;
-		if (t > EPSILON && t < max_len)
-			return (true);
+		{
+			if (tmp.t > EPSILON && tmp.t < max_len)
+				return (true);
+		}
+		// else if (cy...)
 		obj = obj->next;
 	}
 	return (false);
