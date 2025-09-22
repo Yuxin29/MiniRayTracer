@@ -67,7 +67,8 @@ bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec)
 	float	don;
 
 	don = vec_dot(plane->nor_v, ray.direction);
-	if (don >= 0) // if (fabs(den) < 1e - 6), 1e-6 =（0.000001）
+	// if (don >= 0) //
+	if (fabs(don) < EPSILON)
 		return (false);
 	rec->t = vec_dot(vec_sub(plane->p_in_pl, ray.origin), plane->nor_v) / don; // how fa
 	if (rec->t < 0)
