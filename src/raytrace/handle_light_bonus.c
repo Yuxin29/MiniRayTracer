@@ -2,14 +2,14 @@
 
 
 // if
-//Ispec ​= k ​⋅ Ilight ​⋅ (max(R⋅V ,0))shininess
+//Ispec ​= k ​⋅ Ilight ​⋅ (max(R⋅V ,0)) shininess
 // k: specular strenghth (0 - 1.0)
 // I: light brightness
-// R: vector
-// V: vector
-// static t_color apply_specular()
+// R: vector: reflective vec
+// V: vector: ray vec
+// shininess: exponent (controls "sharpness" of highlight, e.g. 16, 32, 64)
+// static t_color apply_specular(t_light light, t_hit_record rec, cam_pos pos)
 // {
-
 
 // }
 
@@ -38,8 +38,6 @@ static	t_color apply_checkerboard(t_hit_record rec, t_color original_color)
 	int x;
 	int z; 
 
-	// x = rec.point.x;
-	// z = rec.point.z; 
 	x = floorf(rec.point.x);
     z = floorf(rec.point.z);
 	if (((abs(x + z)) % 2) == 0) //double not change
@@ -61,16 +59,26 @@ t_color	final_color(t_scene *scene, t_hit_record rec)
 	t_color	ambient;
 	t_color	diffuse;
 	t_color	obj_color;
+	//t_color	specular;
 
 	obj_color = get_color_from_object(rec.obj);
 	obj_color = apply_checkerboard(rec, obj_color);  //this line added
 	ambient = apply_ambient(obj_color, scene->ambient_light);
 	if(is_in_shadow(rec, scene->light, scene->objects))
+	{
 		diffuse = (t_color){0, 0, 0};
+		//specular = (t_color){0, 0, 0};
+	}
 	else
+	{
 		diffuse = apply_diffuse(obj_color, scene->light, rec);
+		//specular = apply_specular(scene->light, rec, scene->cam.cam_pos);
+	}
 	final.r = clamp(ambient.r + diffuse.r, 0, 255);
 	final.g = clamp(ambient.g + diffuse.g, 0, 255);
 	final.b = clamp(ambient.b + diffuse.b, 0, 255);
+	// final.r = clamp(ambient.r + diffuse.r + specular.r, 0, 255);
+	// final.g = clamp(ambient.g + diffuse.g + specular.g, 0, 255);
+	// final.b = clamp(ambient.b + diffuse.b + specular.b, 0, 255);
 	return (final);
 }
