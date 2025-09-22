@@ -68,7 +68,6 @@ static bool	hit_cylinder_body(t_ray ray, t_cylinder *cy, t_hit_record *rec)
 		rec->normal = vec_scale(rec->normal, -1);
 	rec->t = hit.t;
 	rec->point = hit.hit_point;
-	rec->rgb = cy->rgb;
 	return (true);
 }
 
@@ -113,7 +112,7 @@ static bool	hit_bottom_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec)
 	if (hit_plane(ray, &bot_plane, &tmp_rec))
 	{
 		bot_len = vec_len(vec_sub(tmp_rec.point, bottom_cen));
-		if (bot_len < cy->radius)
+		if (bot_len <= cy->radius)
 		{
 			*rec = tmp_rec;
 			return (true);

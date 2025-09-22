@@ -50,15 +50,28 @@ static t_color	apply_diffuse(t_color obj_color, t_light light, t_hit_record rec)
 	return (color);
 }
 
+static t_color	get_color_from_object(t_object *obj)
+{
+	if (obj->type == OBJ_SP)
+		return (((t_sphere *)obj->data)->rgb);
+	else if (obj->type == OBJ_PL)
+		return (((t_plane *)obj->data)->rgb);
+	else if (obj->type == OBJ_CY)
+		return (((t_cylinder *)obj->data)->rgb);
+	return ((t_color){0, 0, 0}); // fallback to black
+}
+
 /*
 final_color = ambient + diffuse
 */
-t_color	final_color(t_color obj_color, t_scene *scene, t_hit_record rec)
+t_color	final_color(t_scene *scene, t_hit_record rec)
 {
 	t_color	final;
 	t_color	ambient;
 	t_color	diffuse;
+	t_color	obj_color;
 
+	obj_color = get_color_from_object(rec.obj);
 	ambient = apply_ambient(obj_color, scene->ambient_light);
 	if(is_in_shadow(rec, scene->light, scene->objects))
 		diffuse = (t_color){0, 0, 0};

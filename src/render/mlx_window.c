@@ -23,7 +23,7 @@ static void	render_scene(t_scene *scene)
 			data.ray = generate_primary_ray(x, y, &data.view, scene);
 			if (hit_objects(data.ray, scene->objects, &data.rec))
 			{
-				data.c = final_color(data.rec.rgb, scene, data.rec);
+				data.c = final_color(scene, data.rec);
 				mlx_put_pixel(scene->img, x, y, (data.c.r << 24 | data.c.g << 16 | data.c.b << 8 | 255));
 			}
 			else

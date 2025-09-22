@@ -58,34 +58,9 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 	rec->normal = vec_normalize(vec_sub(rec->point, sphere->sp_center));
 	if (vec_dot(ray.direction, rec->normal) > 0)
 		rec->normal = vec_scale(rec->normal, -1);
-	rec->rgb = sphere->rgb;
 	return (true);
 }
 
-//yuxin needs to write
-// typedef struct s_ray
-// {
-// 	t_vec3	origin;
-// 	t_vec3	direction;;
-// }	t_ray;
-// typedef struct s_hit_record
-// {
-// 	float	t; //t represents how far along the ray we go to reach the hit point.
-// 	t_vec3	point; //hit point
-// 	t_vec3	normal; //A normal is a vector that points perpendicular to the surface at a specific point.
-// 	t_color	rgb; //0916modify
-// }	t_hit_record;
-// float	vec_dot(t_vec3 a, t_vec3 b)
-// {
-// 	return (a.x * b.x + a.y * b.y + a.z * b.z);
-// }
-// t_vec3	vec_add(t_vec3 a, t_vec3 b);
-// t_vec3	vec_sub(t_vec3 a, t_vec3 b);
-// t_vec3	vec_scale(t_vec3 a, float scalar);
-// float	vec_len(t_vec3 a);
-// t_vec3	vec_normalize(t_vec3 v);
-// float	vec_dot(t_vec3 a, t_vec3 b);
-// t_vec3	vec_cross(t_vec3 a, t_vec3 b);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec)
 {
 	float	don;
@@ -93,7 +68,6 @@ bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec)
 	don = vec_dot(plane->nor_v, ray.direction);
 	if (don >= 0) // if (fabs(den) < 1e - 6), 1e-6 =（0.000001）
 		return (false);
-	rec->rgb = plane->rgb;
 	rec->t = vec_dot(vec_sub(plane->p_in_pl, ray.origin), plane->nor_v) / don; // how fa
 	if (rec->t < 0)
 		return (false);

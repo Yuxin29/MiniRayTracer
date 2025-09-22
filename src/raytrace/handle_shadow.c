@@ -17,11 +17,6 @@ static bool	hit_shadow(t_ray ray, t_object *obj, float max_len)
 
 	while (obj)
 	{
-		// if (obj == ignore) // ignore itself
-		// {
-		// 	obj = obj->next;
-		// 	continue;
-		// }
 		if (obj->type == OBJ_SP && hit_sphere(ray, (t_sphere *)obj->data, &tmp))
 		{
 			if (tmp.t > EPSILON && tmp.t < max_len)
