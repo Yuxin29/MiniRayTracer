@@ -13,8 +13,6 @@ typedef struct s_plane t_plane;
 typedef struct s_color t_color;
 typedef struct s_cylinder t_cylinder;
 
-//struct
-//lin modify type, 8 bits for each color instead of using 32 bits(int) for each color
 typedef struct s_color
 {
 	uint8_t	r;
@@ -30,11 +28,11 @@ typedef struct s_ray
 
 typedef struct s_hit_record
 {
-	float		t; //t represents how far along the ray we go to reach the hit point.
-	t_vec3		point; //hit point
-	t_vec3		normal; //A normal is a vector that points perpendicular to the surface at a specific point.
-	t_color		rgb; //0916modify
-	t_object	*obj; //0922modify
+	float		t;
+	t_vec3		point;
+	t_vec3		normal;
+	t_color		rgb;
+	t_object	*obj;
 }	t_hit_record;
 
 typedef struct s_hit_sphere_info
@@ -44,7 +42,9 @@ typedef struct s_hit_sphere_info
 	float	b;
 	float	c;
 	float	discriminant;
-	float	t;
+	float	real_t;
+	float	t1;
+	float	t2;
 }	t_hit_sphere_info;
 
 typedef struct s_hit_cy_info
@@ -96,28 +96,23 @@ typedef struct s_camera_view
 }	t_camera_view;
 
 bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
-
 t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
-
 void	init_viewport(t_scene *scene, t_camera_view *view);
 t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
-
 //hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
-
 //handle_light_utils
 int		clamp(int value, int min, int max);
-t_color apply_ambient(t_color obj_color, t_a_light amb);
+t_color	apply_ambient(t_color obj_color, t_a_light amb);
 t_color	apply_diffuse(t_color obj_color, t_light light, t_hit_record rec);
 t_color	get_color_from_object(t_object *obj);
-
 bool	hit_cylinder(t_ray ray, t_cylinder *cy, t_hit_record *rec);
-
+bool	hit_bottom_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec);
+bool	hit_top_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec);
 //handle_light
 t_color	final_color(t_scene *scene, t_hit_record rec);
-
 //handle_shadow
 bool	is_in_shadow(t_hit_record rec, t_light light, t_object *obj);
 

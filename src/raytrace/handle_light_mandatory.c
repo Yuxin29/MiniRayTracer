@@ -12,7 +12,7 @@ t_color	final_color(t_scene *scene, t_hit_record rec)
 
 	obj_color = get_color_from_object(rec.obj);
 	ambient = apply_ambient(obj_color, scene->ambient_light);
-	if(is_in_shadow(rec, scene->light, scene->objects))
+	if (is_in_shadow(rec, scene->light, scene->objects))
 		diffuse = (t_color){0, 0, 0};
 	else
 		diffuse = apply_diffuse(obj_color, scene->light, rec);

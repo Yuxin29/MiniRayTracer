@@ -2,7 +2,7 @@
 #include "render.h"
 #include "parsing.h"
 
-// Clicking on the red cross on the window’s frame 
+// Clicking on the red cross on the window’s frame
 // must close the window and quit the program cleanly.
 void	close_window(void *param)
 {
@@ -17,7 +17,7 @@ static void	move_keys(mlx_key_data_t keydata, t_scene *scene)
 	t_vec3	move;
 	float	move_unit;
 
-	move = (t_vec3){0,0,0};
+	move = (t_vec3){0, 0, 0};
 	move_unit = 1.0;
 	if (keydata.key == MLX_KEY_W)
 		move = (t_vec3){0, -move_unit, 0};
@@ -55,7 +55,7 @@ static void	rotate_keys(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_vec3	y_axis;
 
-	y_axis = (t_vec3){0,1,0};
+	y_axis = (t_vec3){0, 1, 0};
 	if (keydata.key == MLX_KEY_LEFT)
 	{
 		scene->need_loop = 1;
@@ -79,7 +79,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		return ;
 	}
 	if (keydata.key == MLX_KEY_ESCAPE)
-    close_window(scene);
+		close_window(scene);
 	move_keys(keydata, scene);
 	scale_keys(keydata, scene);
 	rotate_keys(keydata, scene);

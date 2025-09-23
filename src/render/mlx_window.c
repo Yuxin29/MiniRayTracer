@@ -21,7 +21,8 @@ static void	render_scene(t_scene *scene)
 			if (hit_objects(data.ray, scene->objects, &data.rec))
 			{
 				data.c = final_color(scene, data.rec);
-				mlx_put_pixel(scene->img, x, y, (data.c.r << 24 | data.c.g << 16 | data.c.b << 8 | 255));
+				mlx_put_pixel(scene->img, x, y,
+					(data.c.r << 24 | data.c.g << 16 | data.c.b << 8 | 255));
 			}
 			else
 				mlx_put_pixel(scene->img, x, y, 0x000000FF);
@@ -39,7 +40,7 @@ static void	render_scene_loop(void *param)
 	scene = (t_scene *)param;
 	if (!scene->running)
 	{
-		ft_free_scene(scene); 
+		ft_free_scene(scene);
 		exit (0);
 	}
 	if (scene->need_loop)
@@ -49,10 +50,10 @@ static void	render_scene_loop(void *param)
 	}
 }
 
-// sub: 
-// When you change the resolution of the window, 
+// sub:
+// When you change the resolution of the window,
 // the content of the window must remain unchanged and be adjusted accordingly.
-// inplementation: 
+// inplementation:
 // incase of resizing, update the scene width and height
 // and can recall render scene repeatedly
 static void	handle_screen_resize(int32_t width, int32_t height, void *param)
@@ -75,7 +76,8 @@ static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 
 //mlx_init: 4th: full scree> true or false
 // mlx_key_hook(scene->mlx, key_hook, scene); //Keyboard press/release
-// mlx_resize_hook(scene->mlx, handle_screen_resize, scene); //resizeing by mouse
+// mlx_resize_hook(scene->mlx, handle_screen_resize, scene);
+//resizeing by mouse
 // mlx_close_hook(scene->mlx, close_window, scene);  //clicking red x
 bool	mlx_window(t_scene *scene)
 {

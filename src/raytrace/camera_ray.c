@@ -19,6 +19,7 @@ These three must form a right-handed system (not left-handed).
 world_up: is a common convention in 3D graphics.
 we should Prevent forward and world_up from being parallel
 */
+
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up)
 {
 	t_vec3	forward;
@@ -32,12 +33,14 @@ void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up)
 	*up = vec_normalize(vec_cross(forward, *right));
 }
 
-//The viewport is a 2D virtual plane in front of the camera, through which rays are cast into the 3D world
+//The viewport is a 2D virtual plane in front of the camera,
+//through which rays are cast into the 3D world
 //from camera → through a point on the viewport → into the 3D world
 //The viewport helps define where each ray should go based on the pixel
 //we assume the viewport is 1 unit in front of the camera
 //we should convert the camera's field of view (FOV) from degrees to radians
-//because in C, tan(), sin(), cos() expect the angle to be in radians, not degrees
+//because in C, tan(), sin(),
+//cos() expect the angle to be in radians, not degrees
 /*Then the definitions are:
 sin(θ) = Opposite / Hypotenuse
 cos(θ) = Adjacent / Hypotenuse
@@ -63,8 +66,10 @@ void	init_viewport(t_scene *scene, t_camera_view *view)
 	init_camera_frame(&scene->cam, &view->right, &view->up);
 	center = vec_add(view->camera_origin, vec_scale(view->forward, 1.0f));
 	view->viewport_origin = center;
-	view->viewport_origin = vec_add(view->viewport_origin, vec_scale(view->up, view->viewport_height / 2.0f));
-	view->viewport_origin = vec_sub(view->viewport_origin, vec_scale(view->right, view->viewport_width / 2.0f));
+	view->viewport_origin = vec_add(view->viewport_origin,
+			vec_scale(view->up, view->viewport_height / 2.0f));
+	view->viewport_origin = vec_sub(view->viewport_origin,
+			vec_scale(view->right, view->viewport_width / 2.0f));
 }
 
 /*
@@ -87,8 +92,10 @@ t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene)
 
 	u = ((float)x + 0.5f) / (scene->width - 1);
 	v = ((float)y + 0.5f) / (scene->height - 1);
-	pixel_pos = vec_add(view->viewport_origin, vec_scale(view->right, u * view->viewport_width));
-	pixel_pos = vec_sub(pixel_pos, vec_scale(view->up, v * view->viewport_height));
+	pixel_pos = vec_add(view->viewport_origin,
+			vec_scale(view->right, u * view->viewport_width));
+	pixel_pos = vec_sub(pixel_pos,
+			vec_scale(view->up, v * view->viewport_height));
 	ray.origin = view->camera_origin;
 	ray.direction = vec_normalize(vec_sub(pixel_pos, ray.origin));
 	return (ray);

@@ -1,4 +1,4 @@
-#include "miniRT_bonus.h"  
+#include "miniRT_bonus.h"
 
 // reflective vec formular
 // R = 2(N·L)N - L
@@ -46,14 +46,14 @@ static t_color	apply_specular(t_light light, t_hit_record rec, t_vec3 pos)
 
 //yuxin added for checkerboard
 //after hit obj, use (x, z) to decide is it single or double
-// #include <stdlib.h> 
+// #include <stdlib.h>
 // int abs(int x); absolute value
 // floorf rounded a float down to an int
-// why floorf 
+// why floorf
 // intput x		(int)x				floorf(x)
-// -1.9			-1					-2 			
-// -1.2			-1					-2 			
-// -0.7			0					-1 			
+// -1.9			-1					-2
+// -1.2			-1					-2
+// -0.7			0					-1
 // 	0.7			0					0
 // 	1.2			1					1
 //				rounded towards 0	always round down

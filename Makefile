@@ -1,4 +1,5 @@
 NAME := miniRT
+BONUS_NAME := miniRT_bonus
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
@@ -13,17 +14,17 @@ SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing_env.c $(SRC_DIR)/parsing/parsing_obj_1.c $(SRC_DIR)/parsing/parsing_obj_2.c \
 		$(SRC_DIR)/parsing/parsing_utils_1.c $(SRC_DIR)/parsing/parsing_utils_2.c \
 		$(SRC_DIR)/render/mlx_window.c $(SRC_DIR)/render/keyboard.c $(SRC_DIR)/render/change_scene.c \
-		$(SRC_DIR)/utils/vector.c\
+		$(SRC_DIR)/utils/vector1.c $(SRC_DIR)/utils/vector2.c\
 		$(SRC_DIR)/raytrace/hit_sphere_plane.c $(SRC_DIR)/raytrace/hit_cylinder.c \
-		$(SRC_DIR)/raytrace/hit_objects.c \
+		$(SRC_DIR)/raytrace/hit_objects.c $(SRC_DIR)/raytrace/hit_cylinder_utils.c\
 		$(SRC_DIR)/raytrace/camera_ray.c \
 		$(SRC_DIR)/raytrace/handle_light_mandatory.c $(SRC_DIR)/raytrace/handle_light_utils.c \
-		$(SRC_DIR)/raytrace/handle_shadow.c \
+		$(SRC_DIR)/raytrace/handle_shadow.c
 
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJS_BONUS := $(filter-out $(OBJ_DIR)/raytrace/handle_light_mandatory.o, $(OBJS))
 
-BONUS_SRCS := $(SRC_DIR)/raytrace/handle_light_bonus.c
+BONUS_SRCS := $(SRC_DIR)/raytrace/handle_light_bonus.c \
+		$(filter-out $(SRC_DIR)/raytrace/handle_light_mandatory.c,$(SRCS))
 BONUS_OBJS := $(BONUS_SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 MLX_REPO := https://github.com/codam-coding-college/MLX42.git
@@ -38,8 +39,10 @@ all: $(LIBFT_LIB) $(MLX_LIB) $(NAME)
 $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
 
-bonus: $(LIBFT_LIB) $(MLX_LIB) $(OBJS_BONUS) $(BONUS_OBJS)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(BONUS_OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
+bonus: $(LIBFT_LIB) $(MLX_LIB) $(BONUS_NAME)
+
+$(BONUS_NAME): $(LIBFT_LIB) $(MLX_LIB) $(BONUS_OBJS)
+		@$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(BONUS_NAME)
 
 $(LIBFT_LIB):
 		@make -C $(LIBFT_DIR)
@@ -68,7 +71,7 @@ clean:
 		@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-		@rm -rf $(NAME) $(MLX_DIR)
+		@rm -rf $(NAME) $(BONUS_NAME) $(MLX_DIR)
 		@make fclean -C $(LIBFT_DIR)
 
 re: fclean all

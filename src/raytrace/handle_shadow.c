@@ -22,12 +22,14 @@ static bool	hit_shadow(t_ray ray, t_object *obj, float max_len)
 			if (tmp.t > EPSILON && tmp.t < max_len)
 				return (true);
 		}
-		else if (obj->type == OBJ_PL && hit_plane(ray, (t_plane *)obj->data, &tmp))
+		else if (obj->type == OBJ_PL && hit_plane(ray,
+				(t_plane *)obj->data, &tmp))
 		{
 			if (tmp.t > EPSILON && tmp.t < max_len)
 				return (true);
 		}
-		else if (obj->type == OBJ_CY && hit_cylinder(ray, (t_cylinder *)obj->data, &tmp))
+		else if (obj->type == OBJ_CY && hit_cylinder(ray,
+				(t_cylinder *)obj->data, &tmp))
 		{
 			if (tmp.t > EPSILON && tmp.t < max_len)
 				return (true);
@@ -42,9 +44,10 @@ bool	is_in_shadow(t_hit_record rec, t_light light, t_object *obj)
 	t_ray	shadow;
 	float	light_len;
 
-	shadow.origin = vec_add(rec.point, vec_scale(rec.normal, EPSILON));
-	shadow.direction = vec_normalize(vec_sub(light.l_point, rec.point));
+	shadow.origin = vec_add(rec.point,
+			vec_scale(rec.normal, EPSILON));
+	shadow.direction = vec_normalize(vec_sub(light.l_point,
+				rec.point));
 	light_len = vec_len(vec_sub(light.l_point, rec.point));
-	return(hit_shadow(shadow, obj, light_len));
+	return (hit_shadow(shadow, obj, light_len));
 }
-

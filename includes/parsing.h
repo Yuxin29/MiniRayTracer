@@ -24,7 +24,7 @@ typedef struct s_light
 {
 	t_vec3	l_point;
 	float	br_ratio;
-	t_color rgb;
+	t_color	rgb;
 }	t_light;
 
 typedef enum s_obj_type
@@ -104,34 +104,28 @@ typedef struct s_scene
 
 //parsing_file.c          4/5
 t_scene	*parsing(int ac, char **av);
-
 //parsing_line.c        5/5
 //check each line, return true or false to parsing
 bool	validating_parsing_line(char *line, t_scene *scene);
 bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data);
 void	ft_free_scene(t_scene *scene);
-
 // parsing_env.c     3/5
 // parsing rendering env elemENTS: a_light, camera, light:
 bool	validate_parsing_tokens_a(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_c(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_l(char **tokens, t_scene *scene);
-
 //parsing_obj_1.c     3/5
 // parsing objects: sphere
 bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene);
-
 //parsing_obj_2.c     5/5
 // parsing objects: plane and cylinder
 bool	validate_parsing_tokens_pl(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_cy(char **tokens, t_scene *scene);
-
 //parsing_utils_1.c   4/5
 // str helpers
 float	ft_atoi_float(char *str);
 int		count_token_nbr(char **tokens);
 void	free_three_arr(char **vec_1, char **vec_2, char **colors);
-
 //parsing_utils_2.c   5/5
 //fill **str to t_vec and t_color, precheck a str is a valid float
 bool	check_valid_float(char *str);

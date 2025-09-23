@@ -1,7 +1,6 @@
 #include "miniRT.h"
 #include "raytrace.h"
 
-
 /*
 Ray equation:P(t) = O + tD
 cylinder equation: ||(p−C)−[(p−C)⋅V]V||² = r²
@@ -27,101 +26,63 @@ so:
 A = dot(D_perp, D_perp);
 B = 2 * dot(oc_perp, D_perp);
 C = dot(oc_perp, oc_perp) - r^2;
-
 float projection = vec_dot(hit_vec, cy->cy_axis);
 projection gives you how far along the axis the hit point lies
-
+line68://>0 same direction, so flip-> opposite
 */
-static bool	hit_cylinder_body(t_ray ray, t_cylinder *cy, t_hit_record *rec)
+bool	compute_cylinder_body_hit(t_hit_cy_info *hit, t_ray ray, t_cylinder *cy)
 {
-	t_hit_cy_info	hit;
 	float	t1;
 	float	t2;
 
-	hit.oc = vec_sub(ray.origin, cy->cy_center);
-	hit.oc_prep = vec_sub(hit.oc, vec_scale(cy->cy_axis, vec_dot(hit.oc, cy->cy_axis)));
-	hit.d_prep = vec_sub(ray.direction, vec_scale(cy->cy_axis, vec_dot(ray.direction, cy->cy_axis)));
-	hit.a = vec_dot(hit.d_prep, hit.d_prep);
-	hit.b = 2.0f * vec_dot(hit.oc_prep, hit.d_prep);
-	hit.c = vec_dot(hit.oc_prep, hit.oc_prep) - cy->radius * cy->radius;
-	hit.discriminant = hit.b * hit.b - 4 * hit.a * hit.c;
-	if (hit.discriminant < 0)
+	hit->oc = vec_sub(ray.origin, cy->cy_center);
+	hit->oc_prep = vec_sub(hit->oc,
+			vec_scale(cy->cy_axis, vec_dot(hit->oc, cy->cy_axis)));
+	hit->d_prep = vec_sub(ray.direction,
+			vec_scale(cy->cy_axis, vec_dot(ray.direction, cy->cy_axis)));
+	hit->a = vec_dot(hit->d_prep, hit->d_prep);
+	hit->b = 2.0f * vec_dot(hit->oc_prep, hit->d_prep);
+	hit->c = vec_dot(hit->oc_prep, hit->oc_prep) - cy->radius * cy->radius;
+	hit->discriminant = hit->b * hit->b - 4 * hit->a * hit->c;
+	if (hit->discriminant < 0)
 		return (false);
-	t1 = (-hit.b - sqrt(hit.discriminant)) / (2.0f * hit.a);
-	t2 = (-hit.b + sqrt(hit.discriminant)) / (2.0f * hit.a);
+	t1 = (-hit->b - sqrt(hit->discriminant)) / (2.0f * hit->a);
+	t2 = (-hit->b + sqrt(hit->discriminant)) / (2.0f * hit->a);
 	if (t1 > 0 && t2 > 0)
-		hit.t = fmin(t1, t2);
+		hit->t = fmin(t1, t2);
 	else if (t1 > 0)
-		hit.t = t1;
+		hit->t = t1;
 	else if (t2 > 0)
-		hit.t = t2;
+		hit->t = t2;
 	else
+		return (false);
+	return (true);
+}
+
+static bool	hit_cylinder_body(t_ray ray, t_cylinder *cy, t_hit_record *rec)
+{
+	t_hit_cy_info	hit;
+
+	if (!compute_cylinder_body_hit(&hit, ray, cy))
 		return (false);
 	hit.hit_point = vec_add(ray.origin, vec_scale(ray.direction, hit.t));
 	hit.hit_vec = vec_sub(hit.hit_point, cy->cy_center);
 	hit.projection = vec_dot(hit.hit_vec, cy->cy_axis);
-	if (hit.projection > cy->height / 2.0f || hit.projection < -cy->height / 2.0f)
+	if (hit.projection > cy->height / 2.0f
+		|| hit.projection < -cy->height / 2.0f)
 		return (false);
-	hit.projected = vec_add(cy->cy_center, vec_scale(cy->cy_axis, hit.projection));
+	hit.projected = vec_add(cy->cy_center,
+			vec_scale(cy->cy_axis, hit.projection));
 	rec->normal = vec_normalize(vec_sub(hit.hit_point, hit.projected));
-	if (vec_dot(ray.direction, rec->normal) > 0) //>0 same direction, so flip-> opposite
+	if (vec_dot(ray.direction, rec->normal) > 0)
 		rec->normal = vec_scale(rec->normal, -1);
 	rec->t = hit.t;
 	rec->point = hit.hit_point;
 	return (true);
 }
 
-/*
-A cylinder is not infinitely long — it has a top cap and a bottom cap, and the valid hit region is between them.
-top_center = cy_center + (axis * (height / 2))
-bottom_center = cy_center - (axis * (height / 2))
-*/
-static bool	hit_top_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec)
-{
-	t_vec3			top_cen;
-	t_plane			top_plane;
-	t_hit_record	tmp_rec;
-	float			top_len;
-
-
-	top_cen = vec_add(cy->cy_center, vec_scale(cy->cy_axis, cy->height / 2.0f));
-	top_plane.p_in_pl = top_cen;
-	top_plane.nor_v = cy->cy_axis;
-	if (hit_plane(ray, &top_plane, &tmp_rec))
-	{
-		top_len = vec_len(vec_sub(tmp_rec.point, top_cen));
-		if (top_len <= cy->radius)
-		{
-			*rec = tmp_rec;
-			return (true);
-		}
-	}
-	return (false);
-}
-
-static bool	hit_bottom_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec)
-{
-	t_vec3			bottom_cen;
-	t_plane			bot_plane;
-	t_hit_record	tmp_rec;
-	float			bot_len;
-
-	bottom_cen = vec_sub(cy->cy_center,  vec_scale(cy->cy_axis, cy->height / 2.0f));
-	bot_plane.p_in_pl = bottom_cen;
-	bot_plane.nor_v = vec_scale(cy->cy_axis, -1);
-	if (hit_plane(ray, &bot_plane, &tmp_rec))
-	{
-		bot_len = vec_len(vec_sub(tmp_rec.point, bottom_cen));
-		if (bot_len <= cy->radius)
-		{
-			*rec = tmp_rec;
-			return (true);
-		}
-	}
-	return (false);
-}
-
-static bool	hit_cylinder_caps(t_ray ray, t_cylinder *cy, t_hit_record *rec)
+static bool	hit_cylinder_caps(t_ray ray, t_cylinder *cy,
+	t_hit_record *rec)
 {
 	t_hit_record	rec_top;
 	t_hit_record	rec_bot;
@@ -143,12 +104,12 @@ static bool	hit_cylinder_caps(t_ray ray, t_cylinder *cy, t_hit_record *rec)
 	return (false);
 }
 
-bool hit_cylinder(t_ray ray, t_cylinder *cy, t_hit_record *rec)
+bool	hit_cylinder(t_ray ray, t_cylinder *cy, t_hit_record *rec)
 {
 	t_hit_record	body_hit;
 	t_hit_record	cap_hit;
-	bool body;
-	bool caps;
+	bool			body;
+	bool			caps;
 
 	body = hit_cylinder_body(ray, cy, &body_hit);
 	caps = hit_cylinder_caps(ray, cy, &cap_hit);
