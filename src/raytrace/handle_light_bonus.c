@@ -11,9 +11,9 @@ static float	get_max(t_light light, t_hit_record rec, t_vec3 pos)
 	float	rv;
 
 	light_vec = vec_normalize(vec_sub(light.l_point, rec.point));
-	view_vec = vec_normalize(vec_sub(pos, rec.point));
 	two_nl = 2.0f * vec_dot(rec.normal, light_vec);
 	reflective_vec = vec_sub(vec_scale(rec.normal, two_nl), light_vec);
+	view_vec = vec_normalize(vec_sub(pos, rec.point));
 	rv = vec_dot(reflective_vec, view_vec);
 	if (rv < 0.0)
 		rv = 0.0;
@@ -33,11 +33,11 @@ static t_color	apply_specular(t_light light, t_hit_record rec, t_vec3 pos)
 	int		shininess;
 	float	rv;
 	float	power;
-	t_color	res_color;
 	float	k;
+	t_color	res_color;
 
-	k = 0.5;
-	shininess = 16;
+	k = SPEC_K;
+	shininess = SPEC_SHININESS;
 	rv = get_max(light, rec, pos);
 	power = powf(rv, shininess);
 	res_color.r = clamp(light.rgb.r * light.br_ratio * k * power, 0, 255);
@@ -99,7 +99,7 @@ t_color	final_color(t_scene *scene, t_hit_record rec)
 	t_color	specular;
 
 	obj_color = get_color_from_object(rec.obj);
-	if (rec.obj->type == OBJ_PL)
+	if (rec.obj->type == OBJ_PL && USE_CHECKERBOARD)
 		obj_color = apply_checkerboard(rec, obj_color);
 	ambient = apply_ambient(obj_color, scene->ambient_light);
 	specular = (t_color){0, 0, 0};

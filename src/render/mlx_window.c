@@ -58,19 +58,22 @@ static void	render_scene_loop(void *param)
 static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 {
 	t_scene	*scene;
+	mlx_image_t	*new;
 
 	scene = (t_scene *)param;
-	mlx_delete_image(scene->mlx, scene->img);
-	scene->img = mlx_new_image(scene->mlx, width, height);
-	if (!scene->img)
+	new = mlx_new_image(scene->mlx, width, height);
+	if (!new)
 	{
-		ft_putstr_fd("Error: resize: mlx_new_image failed\n", 2);
+		ft_putstr_fd("Error: resize: mlx_new_image failed\n", 1);
 		return ;
 	}
-	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
+	if (scene->img)
+		mlx_delete_image(scene->mlx, scene->img);
+	scene->img = new;
+	mlx_image_to_window(scene->mlx, scene->img , 0, 0);
 	scene->width = width;
 	scene->height = height;
-	render_scene(scene);
+	scene->need_loop = true;
 }
 
 //mlx_init: 4th: full scree> true or false

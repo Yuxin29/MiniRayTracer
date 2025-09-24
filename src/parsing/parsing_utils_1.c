@@ -1,6 +1,7 @@
 #include "miniRT.h"
 #include "parsing.h"
 
+// free 0 - 3 double strs safely
 void	free_three_arr(char **vec_1, char **vec_2, char **colors)
 {
 	if (vec_1)
@@ -11,6 +12,7 @@ void	free_three_arr(char **vec_1, char **vec_2, char **colors)
 		ft_free_arr(colors);
 }
 
+// used in parsing, check nbr of double strs is correct
 int	count_token_nbr(char **tokens)
 {
 	int	i;
@@ -66,6 +68,7 @@ float	ft_atoi_float(char *str)
 	return (number * sign);
 }
 
+// prepare line, change all spaces to the ' '
 void	normalize_line(char *line)
 {
 	int		i;

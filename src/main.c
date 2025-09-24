@@ -18,7 +18,10 @@ int	main(int ac, char **av)
 	if (scene == NULL)
 		return (-1);
 	if (mlx_window(scene) == false)
+	{
+		ft_free_scene(scene);
 		return (-1);
+	}
 	return (0);
 }
 
