@@ -57,7 +57,7 @@ static void	render_scene_loop(void *param)
 // and can recall render scene repeatedly
 static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 {
-	t_scene	*scene;
+	t_scene		*scene;
 	mlx_image_t	*new;
 
 	scene = (t_scene *)param;
@@ -70,7 +70,7 @@ static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 	if (scene->img)
 		mlx_delete_image(scene->mlx, scene->img);
 	scene->img = new;
-	mlx_image_to_window(scene->mlx, scene->img , 0, 0);
+	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
 	scene->width = width;
 	scene->height = height;
 	scene->need_loop = true;

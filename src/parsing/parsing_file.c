@@ -1,7 +1,6 @@
 #include "miniRT.h"
 #include "parsing.h"
 
-
 static void	delete_mlx(t_scene *scene)
 {
 	if (scene->mlx)
