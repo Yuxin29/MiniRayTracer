@@ -28,7 +28,7 @@ B = 2 * dot(oc_perp, D_perp);
 C = dot(oc_perp, oc_perp) - r^2;
 float projection = vec_dot(hit_vec, cy->cy_axis);
 projection gives you how far along the axis the hit point lies
-line68://>0 same direction, so flip-> opposite
+line77: >0 inside ray, so flip-> outside
 */
 bool	compute_cylinder_body_hit(t_hit_cy_info *hit, t_ray ray, t_cylinder *cy)
 {

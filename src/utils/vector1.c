@@ -9,7 +9,17 @@ t_vec3	vec_add(t_vec3 a, t_vec3 b)
 	result.z = a.z + b.z;
 	return (result);
 }
-
+/*
+Subtraction rules
+1.Point – Point = Vector
+→ the displacement (direction + distance) from one point to another.
+Example: B - A gives the vector from A to B.
+2.Vector – Vector = Vector
+→ standard component-wise subtraction.
+Example: (1,2,3) - (0,1,1) = (1,1,2).
+3.Point – Vector = Point
+→ moving a point backwards along a vector.
+*/
 t_vec3	vec_sub(t_vec3 a, t_vec3 b)
 {
 	t_vec3	result;
