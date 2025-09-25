@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 // a valid color string shoud be a pure digit from 0 - 255
 static bool	check_valid_color(char *color)

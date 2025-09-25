@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 //helpers for validate_parsing_tokens_pl below
 static bool	fill_pl_info(char **tokens, t_plane *new_pl)
@@ -32,6 +31,8 @@ bool	validate_parsing_tokens_pl(char **tokens, t_scene *scene)
 {
 	t_plane	*new_pl;
 
+	if (count_token_nbr(tokens) != 4)
+		return (false);
 	new_pl = ft_calloc(1, sizeof(t_plane));
 	if (!new_pl)
 		return (false);
@@ -100,6 +101,8 @@ bool	validate_parsing_tokens_cy(char **tokens, t_scene *scene)
 {
 	t_cylinder	*new_cy;
 
+	if (count_token_nbr(tokens) != 6)
+		return (false);
 	new_cy = ft_calloc(1, sizeof(t_cylinder));
 	if (!new_cy)
 		return (false);

@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 //from the subject
 //  Your program must be able to apply translation 

@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 // Ambient lightning:
 // identifier: A
@@ -10,6 +9,8 @@ bool	validate_parsing_tokens_a(char **tokens, t_scene *scene)
 	char	**colors;
 
 	if (scene->al_existence == true)
+		return (false);
+	if (count_token_nbr(tokens) != 3)
 		return (false);
 	if (!check_valid_float(tokens[1]))
 		return (false);
@@ -38,6 +39,8 @@ bool	validate_parsing_tokens_c(char **tokens, t_scene *scene)
 	char	**vec_2;
 
 	if (scene->c_existence == true)
+		return (false);
+	if (count_token_nbr(tokens) != 4)
 		return (false);
 	if (!check_valid_float(tokens[3]))
 		return (false);
@@ -69,6 +72,8 @@ bool	validate_parsing_tokens_l(char **tokens, t_scene *scene)
 	char	**colors;	
 
 	if (scene->l_existence == true)
+		return (false);
+	if (count_token_nbr(tokens) != 4)
 		return (false);
 	if (!check_valid_float(tokens[2]))
 		return (false);

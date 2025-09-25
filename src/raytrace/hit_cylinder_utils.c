@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "raytrace.h"
 
 bool	hit_bottom_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec)
 {

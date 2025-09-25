@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "raytrace.h"
 
 t_vec3	vec3(float x, float y, float z)
 {

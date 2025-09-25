@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 // free 0 - 3 double strs safely
 void	free_three_arr(char **vec_1, char **vec_2, char **colors)

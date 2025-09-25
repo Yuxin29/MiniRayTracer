@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "raytrace.h"
 
 /*
 Ray equation:P(t) = O + tD

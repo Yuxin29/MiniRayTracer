@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 // camera updated inside it, be called repeately
 //0xAAFF1111, Transparency + rgb

@@ -1,5 +1,4 @@
 #include "miniRT.h"
-#include "parsing.h"
 
 //helper functions for the validate_parsing_tokens_sp below
 static bool	fill_sp_bi_info(char **tokens, t_sphere *new_sp)
@@ -40,6 +39,8 @@ bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene)
 {
 	t_sphere	*new_sp;
 
+	if (count_token_nbr(tokens) != 4)
+		return (false);
 	new_sp = ft_calloc(1, sizeof(t_sphere));
 	if (!new_sp)
 		return (false);
