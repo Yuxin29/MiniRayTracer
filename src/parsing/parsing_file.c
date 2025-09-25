@@ -115,7 +115,7 @@ t_scene	*parsing(int ac, char **av)
 	}
 	if (scene->line_error == true)
 	{
-		ft_putstr_fd("Error: error occured during line checking", 2);
+		ft_putstr_fd("Error: error occured during line checking\n", 2);
 		ft_free_scene(scene);
 		return (NULL);
 	}
