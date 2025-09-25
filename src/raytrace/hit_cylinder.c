@@ -47,11 +47,11 @@ bool	compute_cylinder_body_hit(t_hit_cy_info *hit, t_ray ray, t_cylinder *cy)
 		return (false);
 	t1 = (-hit->b - sqrt(hit->discriminant)) / (2.0f * hit->a);
 	t2 = (-hit->b + sqrt(hit->discriminant)) / (2.0f * hit->a);
-	if (t1 > 0 && t2 > 0)
+	if (t1 > EPSILON && t2 > EPSILON)
 		hit->t = fmin(t1, t2);
-	else if (t1 > 0)
+	else if (t1 > EPSILON)
 		hit->t = t1;
-	else if (t2 > 0)
+	else if (t2 > EPSILON)
 		hit->t = t2;
 	else
 		return (false);

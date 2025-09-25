@@ -16,7 +16,7 @@ static void	move_keys(mlx_key_data_t keydata, t_scene *scene)
 	float	move_unit;
 
 	move = (t_vec3){0, 0, 0};
-	move_unit = 1.0;
+	move_unit = 0.3;
 	if (keydata.key == MLX_KEY_W)
 		move = (t_vec3){0, move_unit, 0};
 	if (keydata.key == MLX_KEY_S)
@@ -76,6 +76,19 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		return ;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		close_window(scene);
+	if (keydata.key == MLX_KEY_C)
+	{
+		if (scene->cam_move == 0)
+		{
+			scene->cam_move = 1;
+			printf("camera movement on\n");
+		}
+		else
+		{
+			scene->cam_move = 0;
+			printf("camera movement off\n");
+		}
+	}
 	move_keys(keydata, scene);
 	scale_keys(keydata, scene);
 	rotate_keys(keydata, scene);

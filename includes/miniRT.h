@@ -141,6 +141,7 @@ typedef struct s_scene
 	t_object	*objects;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	bool		cam_move;
 	bool		need_loop;
 	bool		running;
 	bool		line_error;

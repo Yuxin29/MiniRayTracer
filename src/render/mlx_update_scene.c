@@ -1,10 +1,6 @@
 #include "miniRT.h"
 
-//from the subject
-//  Your program must be able to apply translation 
-// and rotation transformation to objects, lights and cameras 
-// (except for spheres and lights that cannot be rotated
-void	change_move(t_scene *scene, t_vec3 move)
+static void	change_move_objs(t_scene *scene, t_vec3 move)
 {
 	t_object	*cur;
 	t_sphere	*sp;
@@ -31,6 +27,18 @@ void	change_move(t_scene *scene, t_vec3 move)
 		}
 		cur = cur->next;
 	}
+}
+
+//from the subject
+//  Your program must be able to apply translation 
+// and rotation transformation to objects, lights and cameras 
+// (except for spheres and lights that cannot be rotated
+void	change_move(t_scene *scene, t_vec3 move)
+{
+	if (scene->cam_move)
+		scene->cam.v_point = vec_add(scene->cam.v_point, move);
+	else
+		change_move_objs(scene, move);
 }
 
 //from the subject
@@ -88,6 +96,11 @@ void	change_rotation(t_scene *scene, t_vec3 y_axis, float angle)
 	t_plane		*pl;
 	t_cylinder	*cy;
 
+	if (scene->cam_move)
+	{
+		scene->cam.v_orien = vec_rotate(scene->cam.v_orien, y_axis, angle);
+		return ;
+	}
 	cur = scene->objects;
 	while (cur)
 	{
@@ -103,5 +116,4 @@ void	change_rotation(t_scene *scene, t_vec3 y_axis, float angle)
 		}
 		cur = cur->next;
 	}
-	scene->cam.v_orien = vec_rotate(scene->cam.v_orien, y_axis, angle);
 }

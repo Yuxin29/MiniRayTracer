@@ -4,17 +4,17 @@
 # include "miniRT.h"
 
 // checkerboard, defalt yes true
-#ifndef USE_CHECKERBOARD
-# define USE_CHECKERBOARD 1
-#endif
+# ifndef USE_CHECKERBOARD
+#define USE_CHECKERBOARD 1
+# endif
 
 // specular strength
-#ifndef SPEC_K
+# ifndef SPEC_K
 # define SPEC_K 0.5
 #endif
 
 // shininess
-#ifndef SPEC_SHININESS
+# ifndef SPEC_SHININESS
 # define SPEC_SHININESS 16
 #endif
 

@@ -1,7 +1,7 @@
 #include "miniRT.h"
 
 // camera updated inside it, be called repeately
-//0xAAFF1111, Transparency + rgb
+//0xAAFF1111, rgb + Transparency
 static void	render_scene(t_scene *scene)
 {
 	int				x;
