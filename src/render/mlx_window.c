@@ -64,7 +64,7 @@ static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 	new = mlx_new_image(scene->mlx, width, height);
 	if (!new)
 	{
-		ft_putstr_fd("Error: resize: mlx_new_image failed\n", 1);
+		ft_putstr_fd("Error: resize: mlx_new_image failed\n", 2);
 		return ;
 	}
 	if (scene->img)
@@ -86,13 +86,13 @@ bool	mlx_window(t_scene *scene)
 	scene->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	if (!scene->mlx)
 	{
-		ft_putstr_fd("Error: mlx_init failed\n", 1);
+		ft_putstr_fd("Error: mlx_init failed\n", 2);
 		return (false);
 	}
 	scene->img = mlx_new_image(scene->mlx, WIDTH, HEIGHT);
 	if (!scene->img)
 	{
-		ft_putstr_fd("Error: mlx_new image failed\n", 1);
+		ft_putstr_fd("Error: mlx_new image failed\n", 2);
 		return (false);
 	}
 	mlx_image_to_window(scene->mlx, scene->img, 0, 0);

@@ -40,8 +40,8 @@ void	ft_free_scene(t_scene *scene)
 	scene = NULL;
 }
 
-//sub 
-// Your program must take as a first argument 
+//sub
+// Your program must take as a first argument
 // a scene description file with the .rt extension.
 //check if file suffix valid // open file successful
 static bool	check_file(char **av, t_scene *scene)
@@ -51,13 +51,13 @@ static bool	check_file(char **av, t_scene *scene)
 	ext = ft_strrchr(av[1], '.');
 	if (!ext || ft_strcmp(ext, ".rt") != 0)
 	{
-		ft_putstr_fd("Error: wrong format\n", 1);
+		ft_putstr_fd("Error: wrong format\n", 2);
 		return (false);
 	}
 	scene->fd = open(av[1], O_RDONLY);
 	if (scene->fd == -1)
 	{
-		ft_putstr_fd("Error: open file failed\n", 1);
+		ft_putstr_fd("Error: open file failed\n", 2);
 		return (false);
 	}
 	return (true);
@@ -72,13 +72,13 @@ static t_scene	*precheck_av(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putstr_fd("Error: wrong argument nbr\n", 1);
+		ft_putstr_fd("Error: wrong argument nbr\n", 2);
 		return (NULL);
 	}
 	scene = ft_calloc(1, sizeof(t_scene));
 	if (scene == NULL)
 	{
-		ft_putstr_fd("Error: malloc scene failed\n", 1);
+		ft_putstr_fd("Error: malloc scene failed\n", 2);
 		return (NULL);
 	}
 	if (check_file(av, scene) == false)
@@ -116,7 +116,7 @@ t_scene	*parsing(int ac, char **av)
 	}
 	if (scene->line_error == true)
 	{
-		ft_putstr_fd("Error: error occured during line checking", 1);
+		ft_putstr_fd("Error: error occured during line checking", 2);
 		ft_free_scene(scene);
 		return (NULL);
 	}
