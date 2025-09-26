@@ -126,6 +126,32 @@ typedef struct s_object
 	struct s_object		*next;
 }	t_object;
 
+//the width and height of the viewport
+//forward, right, up define the orientation of the camera in 3D space:
+//viewport_origin;top-left corner of the viewport (strat point)
+//camera_origin; position of the camera
+typedef struct s_camera_view
+{
+	float	viewport_width;
+	float	viewport_height;
+	t_vec3	viewport_origin;
+	t_vec3	forward;
+	t_vec3	right;
+	t_vec3	up;
+	t_vec3	camera_origin;
+	t_vec3	horizontal;
+	t_vec3	vertical;
+}	t_camera_view;
+
+typedef struct s_hit_record
+{
+	float		t;
+	t_vec3		point;
+	t_vec3		normal;
+	t_color		rgb;
+	t_object	*obj;
+}	t_hit_record;
+
 // a scene with everything inside
 typedef struct s_scene
 {
@@ -145,25 +171,22 @@ typedef struct s_scene
 	bool		need_loop;
 	bool		running;
 	bool		line_error;
+	t_ray			ray;//
+	t_camera_view	view;//
+	t_hit_record	rec;//
+	t_color			c;//
 }	t_scene;
 
+// typedef struct s_render_data
+// {
+// 	t_ray			ray;
+// 	t_camera_view	view;
+// 	t_hit_record	rec;
+// 	t_color			c;
+// }	t_render_data;
 /* ~~~~~~~~~~~~~~~~~~ RENDERING STRUC ~~~~~~~~~~~~~~~~~~ */
-//the width and height of the viewport
-//forward, right, up define the orientation of the camera in 3D space:
-//viewport_origin;top-left corner of the viewport (strat point)
-//camera_origin; position of the camera
-typedef struct s_camera_view
-{
-	float	viewport_width;
-	float	viewport_height;
-	t_vec3	viewport_origin;
-	t_vec3	forward;
-	t_vec3	right;
-	t_vec3	up;
-	t_vec3	camera_origin;
-	t_vec3	horizontal;
-	t_vec3	vertical;
-}	t_camera_view;
+
+
 
 typedef struct s_hit_sphere_info
 {
@@ -193,22 +216,13 @@ typedef struct s_hit_cy_info
 	t_vec3	projected;
 }	t_hit_cy_info;
 
-typedef struct s_hit_record
-{
-	float		t;
-	t_vec3		point;
-	t_vec3		normal;
-	t_color		rgb;
-	t_object	*obj;
-}	t_hit_record;
-
-typedef struct s_render_data
-{
-	t_ray			ray;
-	t_camera_view	view;
-	t_hit_record	rec;
-	t_color			c;
-}	t_render_data;
+// typedef struct s_render_data
+// {
+// 	t_ray			ray;
+// 	t_camera_view	view;
+// 	t_hit_record	rec;
+// 	t_color			c;
+// }	t_render_data;
 
 /* ~~~~~~~~~~~~~~~~~~ VECTOR ~~~~~~~~~~~~~~~~~~ */
 //vector
@@ -249,8 +263,10 @@ bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
 //cemera_ray.c
 t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
-void	init_viewport(t_scene *scene, t_camera_view *view);
-t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
+void	init_viewport(t_scene *scene);
+t_ray	generate_primary_ray(int x, int y, t_scene *scene);
+//void	init_viewport(t_scene *scene, t_camera_view *view);
+//t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
 //hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);

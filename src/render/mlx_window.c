@@ -6,21 +6,21 @@ static void	render_scene(t_scene *scene)
 {
 	int				x;
 	int				y;
-	t_render_data	data;
+	//t_render_data	data;
 
-	init_viewport(scene, &data.view);
+	init_viewport(scene);
 	y = 0;
 	while (y < scene->height)
 	{
 		x = 0;
 		while (x < scene->width)
 		{
-			data.ray = generate_primary_ray(x, y, &data.view, scene);
-			if (hit_objects(data.ray, scene->objects, &data.rec))
+			scene->ray = generate_primary_ray(x, y, scene);
+			if (hit_objects(scene->ray, scene->objects, &scene->rec))
 			{
-				data.c = final_color(scene, data.rec);
+				scene->c = final_color(scene, scene->rec);
 				mlx_put_pixel(scene->img, x, y,
-					(data.c.r << 24 | data.c.g << 16 | data.c.b << 8 | 255));
+					(scene->c.r << 24 | scene->c.g << 16 | scene->c.b << 8 | 255));
 			}
 			else
 				mlx_put_pixel(scene->img, x, y, 0x000000FF);
