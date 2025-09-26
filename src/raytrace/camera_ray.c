@@ -50,7 +50,6 @@ viewport_origin = center
 	- right * (viewport_width / 2)//move left
 */
 void	init_viewport(t_scene *scene)
-//void	init_viewport(t_scene *scene, t_camera_view *view)
 {
 	float	aspect_ratio;
 	float	fov_rad;
@@ -83,7 +82,6 @@ Calculates the color (based on lighting, materials, etc.)
 Writes the color to the pixel
 */
 t_ray	generate_primary_ray(int x, int y, t_scene *scene)
-//t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene)
 {
 	float	u;
 	float	v;

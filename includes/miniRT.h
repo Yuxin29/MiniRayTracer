@@ -155,35 +155,28 @@ typedef struct s_hit_record
 // a scene with everything inside
 typedef struct s_scene
 {
-	int			fd;
-	int32_t		width;
-	int32_t		height;
-	t_a_light	ambient_light;
-	t_camera	cam;
-	t_light		light;
-	bool		al_existence;
-	bool		c_existence;
-	bool		l_existence;
-	t_object	*objects;
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	bool		cam_move;
-	bool		need_loop;
-	bool		running;
-	bool		line_error;
-	t_ray			ray;//
-	t_camera_view	view;//
-	t_hit_record	rec;//
-	t_color			c;//
+	int				fd;
+	int32_t			width;
+	int32_t			height;
+	t_a_light		ambient_light;
+	t_camera		cam;
+	t_light			light;
+	bool			al_existence;
+	bool			c_existence;
+	bool			l_existence;
+	t_object		*objects;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	bool			cam_move;
+	bool			need_loop;
+	bool			running;
+	bool			line_error;
+	t_ray			ray;
+	t_camera_view	view;
+	t_hit_record	rec;
+	t_color			c;
 }	t_scene;
 
-// typedef struct s_render_data
-// {
-// 	t_ray			ray;
-// 	t_camera_view	view;
-// 	t_hit_record	rec;
-// 	t_color			c;
-// }	t_render_data;
 /* ~~~~~~~~~~~~~~~~~~ RENDERING STRUC ~~~~~~~~~~~~~~~~~~ */
 
 
@@ -215,14 +208,6 @@ typedef struct s_hit_cy_info
 	t_vec3	hit_point;
 	t_vec3	projected;
 }	t_hit_cy_info;
-
-// typedef struct s_render_data
-// {
-// 	t_ray			ray;
-// 	t_camera_view	view;
-// 	t_hit_record	rec;
-// 	t_color			c;
-// }	t_render_data;
 
 /* ~~~~~~~~~~~~~~~~~~ VECTOR ~~~~~~~~~~~~~~~~~~ */
 //vector
@@ -265,8 +250,6 @@ t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 void	init_viewport(t_scene *scene);
 t_ray	generate_primary_ray(int x, int y, t_scene *scene);
-//void	init_viewport(t_scene *scene, t_camera_view *view);
-//t_ray	generate_primary_ray(int x, int y, t_camera_view *view, t_scene *scene);
 //hit_sphere_plane
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec);
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
