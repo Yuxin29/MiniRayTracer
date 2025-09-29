@@ -1,5 +1,14 @@
 just notes
 
+
+# 7️⃣ 删除临时远程，变成完全独立仓库
+git remote remove shared
+
+# ✅ 现在你可以确认仓库状态
+git status
+git log --oneline --graph --decorate
+
+
 =========================DAY 1(10.9)===================================
 // test we should do in day 1
 
