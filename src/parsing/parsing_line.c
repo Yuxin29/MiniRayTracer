@@ -1,6 +1,12 @@
 #include "miniRT.h"
 
-//parsing one line
+/**
+ * @brief 	parsing one line according to the element type
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return	bool true if line is valid and parsed, false otherwise
+ *
+ */
 static bool	validate_tokens_content(char **tokens, t_scene *scene)
 {
 	if (ft_strncmp(tokens[0], "A", 1) == 0)
@@ -18,6 +24,15 @@ static bool	validate_tokens_content(char **tokens, t_scene *scene)
 	return (false);
 }
 
+/**
+ * @brief 	adding the parsed object to the scene's object list
+ *
+ * @param 	type type of the object to add
+ * @param 	data pointer to the object data struct	
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return	bool true if line is valid and parsed, false otherwise
+ *
+ */
 bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data)
 {
 	t_object	*obj;

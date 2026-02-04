@@ -1,6 +1,12 @@
 #include "miniRT.h"
 
-// free 0 - 3 double strs safely
+/**
+ * @brief 	free three double strings safely
+ *
+ * @param 	vec_1 first double str array
+ * @param 	vec_2 second double str array
+ * @param 	colors third double str array
+ */
 void	free_three_arr(char **vec_1, char **vec_2, char **colors)
 {
 	if (vec_1)
@@ -11,7 +17,12 @@ void	free_three_arr(char **vec_1, char **vec_2, char **colors)
 		ft_free_arr(colors);
 }
 
-// used in parsing, check nbr of double strs is correct
+/**
+ * @brief 	count number of tokens in a double string array
+ *
+ * @param 	tokens double str array
+ * @return 	int number of tokens in the array
+ */
 int	count_token_nbr(char **tokens)
 {
 	int	i;
@@ -22,7 +33,9 @@ int	count_token_nbr(char **tokens)
 	return (i);
 }
 
-//skip '.' first
+/**
+ * @brief 	get the decimal part of a float number
+ */
 static float	get_decimal(char *str, double number)
 {
 	float	decimal;
@@ -41,7 +54,11 @@ static float	get_decimal(char *str, double number)
 	return (number);
 }
 
-//float max? is it needed
+/**
+ * @brief 	normalize one line of the .rt file: change all spaces to the ' '
+ *
+ * @param 	line line to be normalized
+ */
 float	ft_atoi_float(char *str)
 {
 	float	sign;
@@ -67,7 +84,11 @@ float	ft_atoi_float(char *str)
 	return (number * sign);
 }
 
-// prepare line, change all spaces to the ' '
+/**
+ * @brief 	normalize one line of the .rt file: change all spaces to the ' '
+ *
+ * @param 	line line to be normalized
+ */
 void	normalize_line(char *line)
 {
 	int		i;

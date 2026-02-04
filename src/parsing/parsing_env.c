@@ -1,9 +1,18 @@
 #include "miniRT.h"
 
-// Ambient lightning:
-// identifier: A
-// ambient lighting ratio in range [0.0,1.0]: 0.2
-// R,G,B colors in range [0-255]: 255, 255, 255
+/**
+ * @brief 	parsing the environmental elements of Ambient lightning:
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return 	bool true if line is valid and parsed, false otherwise
+ *
+ * @example	Ambient lightning:
+			A 0.2 255,255,255
+ ∗ 			identifier: A
+ ∗			ambient lighting ratio in range [0.0,1.0]: 0.2
+ ∗			R,G,B colors in range [0-255]: 255, 255, 255
+ ∗			FOV : Horizontal field of view in degrees in range [0,180]: 70
+ */
 bool	validate_parsing_tokens_a(char **tokens, t_scene *scene)
 {
 	char	**colors;
@@ -29,10 +38,19 @@ bool	validate_parsing_tokens_a(char **tokens, t_scene *scene)
 	return (true);
 }
 
-//identifier: C
-// ∗ x,y,z coordinates of the view point: -50.0,0,20
-// ∗ 3d normalized vector. In range [-1,1]: 0.0,0.0,1.0
-// ∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
+/**
+ * @brief 	parsing the environmental elements of camera
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return 	bool true if line is valid and parsed, false otherwise
+ *
+ * @example	Camera:
+			C -50.0,0,20 0.0,0.0,1.0 70
+ ∗ 			identifier: C
+ ∗			x,y,z coordinates of the view point: -50.0,0,20
+ ∗			3d normalized vector. In range [-1,1]: 0.0,0.0,1.0
+ ∗			FOV : Horizontal field of view in degrees in range [0,180]: 70
+ */
 bool	validate_parsing_tokens_c(char **tokens, t_scene *scene)
 {
 	char	**vec_1;
@@ -60,12 +78,20 @@ bool	validate_parsing_tokens_c(char **tokens, t_scene *scene)
 	return (true);
 }
 
-// Light:
-// L -40.0,50.0,0.0 0.6 10,0,255
-// ∗ identifier: L
-// ∗ x,y,z coordinates of the light point: -40.0,50.0,0.0
-// ∗ the light brightness ratio in range [0.0,1.0]: 0.6
-// ∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
+/**
+ * @brief 	parsing the environmental elements of light
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return 	bool true if line is valid and parsed, false otherwise
+ *
+ * @note	the light point is the source of the light and the brightness ratio is the intensity of the light.
+ * @example	Light:
+			L -40.0,50.0,0.0 0.6 10,0,255
+ ∗ 			identifier: L
+ ∗			x,y,z coordinates of the light point: -40.0,50.0,0.0
+ ∗			the light brightness ratio in range [0.0,1.0]: 0.6
+ ∗			(unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
+ */
 bool	validate_parsing_tokens_l(char **tokens, t_scene *scene)
 {
 	char	**vec;

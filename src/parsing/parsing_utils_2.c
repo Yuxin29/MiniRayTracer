@@ -1,6 +1,13 @@
 #include "miniRT.h"
 
-// a valid color string shoud be a pure digit from 0 - 255
+/**
+ * @brief 	precheck if the string is a valid color
+ *
+ * @param 	color string to be checked
+ * @return bool true if the string is a valid color, false otherwise
+ *
+ * @note 	a valid color str must be a digit in range [0,255]
+ */
 static bool	check_valid_color(char *color)
 {
 	int	i;
@@ -19,8 +26,15 @@ static bool	check_valid_color(char *color)
 	return (true);
 }
 
-// a valid colors strs should be 3 strings
-// each string needs to be a valid color (0 - 255)
+/**
+ * @brief 	fill the t_color struct from a string array
+ *
+ * @param 	colors string array to be converted
+ * @param 	rgb pointer to the t_color struct
+ * @return bool true if the string is a valid color, false otherwise
+ *
+ * @note 	a valid color str must be a digit in range [0,255]
+ */
 bool	do_color(char **colors, t_color *rgb)
 {
 	int	i;
@@ -42,9 +56,16 @@ bool	do_color(char **colors, t_color *rgb)
 	return (true);
 }
 
-// a valid float str must has a digit before .
-//must has one and only one dote
-//after the dote, the has to be at list one digit
+/**
+ * @brief 	check if a string is a valid float number
+ *
+ * @param 	str string to be checked
+ * @return bool true if the string is a valid float, false otherwise
+ *
+ * @note 	a valid float str must has a digit before .
+			must has one and only one dote
+			after the dote, the has to be at list one digit
+ */
 bool	check_valid_float(char *str)
 {
 	int		i;
@@ -73,8 +94,15 @@ bool	check_valid_float(char *str)
 	return (true);
 }
 
-// x, y, z recommended Range : `-1000 ~ +1000`
-// Enough space to place multiple objects and move the camera around
+/**
+ * @brief 	convert a string array to a normalized vector
+ *
+ * @param 	vec string array to be converted
+ * @param 	vec_xyz pointer to the vector
+ * @return bool true if the string array is valid and converted, false otherwise
+ *
+ * @note x, y, z recommended Range : `-1000 ~ +1000` to place multiple objects and move the camera around
+ */
 bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz)
 {
 	int	i;
@@ -99,11 +127,16 @@ bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz)
 	return (true);
 }
 
-// Each type of element can be separated by one or more line break(s).
-// -> it coulld the empty space or self_defined
-// 3d normalized orientation vector.
-// In range [-1,1] for each x,y,z axis
-bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor) //should modify?
+/**
+ * @brief 	convert a string array to a normalized vector
+ *
+ * @param 	vec string array to be converted
+ * @param 	vec_nor pointer to the normalized vector
+ * @return bool true if the string array is valid and converted, false otherwise
+ *
+ * @note each string needs to be a valid float in range [-1,1]
+ */
+bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor)
 {
 	int	i;
 

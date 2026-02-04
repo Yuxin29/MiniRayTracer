@@ -1,6 +1,12 @@
 #include "miniRT.h"
 
-//helper functions for the validate_parsing_tokens_sp below
+/**
+ * @brief 	filling the coordinates and colors of Sphere
+ *
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_sphere new_sp pointer to the new sphere struct
+ * @return 	bool true if diameter is valid and filled, false otherwise
+ */
 static bool	fill_sp_bi_info(char **tokens, t_sphere *new_sp)
 {
 	char	**vec_1;
@@ -18,6 +24,13 @@ static bool	fill_sp_bi_info(char **tokens, t_sphere *new_sp)
 	return (true);
 }
 
+/**
+ * @brief 	filling the diameter of Sphere: a logical float value
+ *
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_sphere new_sp pointer to the new sphere struct
+ * @return 	bool true if diameter is valid and filled, false otherwise
+ */
 static bool	fill_sp_float(char **tokens, t_sphere *new_sp)
 {
 	if (!check_valid_float(tokens[2]))
@@ -28,13 +41,19 @@ static bool	fill_sp_float(char **tokens, t_sphere *new_sp)
 	return (true);
 }
 
-// Sphere:
-// sp 0.0,0.0,20.6 12.6 10,0,255
-// ∗ identifier: sp
-// ∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
-// ∗ the sphere diameter: 12.6
-// ∗ R,G,B colors in range [0-255]: 10, 0, 255
-// the sphere diameter: can not be minus, can not be too big
+/**
+ * @brief 	parsing the object  elements of Sphere:
+ * @param 	tokens tokens of the line after split
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return 	bool true if line is valid and parsed, false otherwise
+ *
+ * @example	Sphere:
+			sp 0.0,0.0,20.6 12.6 10,0,255
+ ∗ 			identifier: sp
+ ∗			x,y,z coordinates of the sphere center: 0.0,0.0,20.6
+ ∗			the sphere diameter: 12.6
+ ∗			R,G,B colors in range [0-255]: 10, 0, 255
+ */
 bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene)
 {
 	t_sphere	*new_sp;
