@@ -1,7 +1,14 @@
 #include "miniRT.h"
 
-// camera updated inside it, be called repeately
-//0xAAFF1111, rgb + Transparency
+/**
+ * @brief 	render one scene pixel by pixel
+ *
+ * @param 	width new width of the window
+ * @return void	
+ *
+ * @note 	0xAAFF1111, rgb + Transparency
+			camera updated inside it, be called repeately
+ */
 static void	render_scene(t_scene *scene)
 {
 	int	x;
@@ -30,7 +37,13 @@ static void	render_scene(t_scene *scene)
 	}
 }
 
-// call render_scene repeatedly if the keyboard / mousing chaning scene
+/**
+ * @brief 	calling render_scene repeatedly if needed (when the keyboard / mousing chaning scene)
+ *
+ * @param 	*param pointer to the scene struct
+ * @return void
+ *
+ */
 static void	render_scene_loop(void *param)
 {
 	t_scene	*scene;
@@ -48,12 +61,19 @@ static void	render_scene_loop(void *param)
 	}
 }
 
-// sub:
-// When you change the resolution of the window,
-// the content of the window must remain unchanged and be adjusted accordingly.
-// inplementation:
-// incase of resizing, update the scene width and height
-// and can recall render scene repeatedly
+/**
+ * @brief 	resizing the window and image when the window is resized
+ *
+ * @param 	width new width of the window
+ * @param 	height new height of the window
+ * @param 	*param pointer to the scene struct		
+ * @return void	
+ *
+ * @note 	according to subject
+			When you change the resolution of the window, the content of the window must remain unchanged and be adjusted accordingly.
+			my implementation:
+			in case of resizing, update the scene width and height and can recall render scene repeatedly
+ */
 static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 {
 	t_scene		*scene;
@@ -76,11 +96,18 @@ static void	handle_screen_resize(int32_t width, int32_t height, void *param)
 	scene->need_loop = true;
 }
 
-//mlx_init: 4th: full scree> true or false
-// mlx_key_hook(scene->mlx, key_hook, scene); //Keyboard press/release
-// mlx_resize_hook(scene->mlx, handle_screen_resize, scene);
-//resizeing by mouse
-// mlx_close_hook(scene->mlx, close_window, scene);  //clicking red x
+/**
+ * @brief 	initializing the mlx window and image, setting up hooks and starting the mlx loop
+ *
+ * @param 	t_scene *scene pointer to the scene struct
+ * @return bool true if successful, false otherwise
+ *
+ * @note 	mlx lib functions used here are:
+			mlx_init: 4th: full scree> true or false
+			mlx_key_hook(scene->mlx, key_hook, scene); //Keyboard press/release
+			mlx_resize_hook(scene->mlx, handle_screen_resize, scene);
+			mlx_close_hook(scene->mlx, close_window, scene);  //clicking red x
+ */
 bool	mlx_window(t_scene *scene)
 {
 	scene->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);

@@ -9,6 +9,7 @@ t_vec3	vec3(float x, float y, float z)
 	v.z = z;
 	return (v);
 }
+
 /*
 get the forward, up, right vector of the camera
 forward → where the camera is looking (like Z axis)
@@ -18,7 +19,6 @@ These three must form a right-handed system (not left-handed).
 world_up: is a common convention in 3D graphics.
 we should Prevent forward and world_up from being parallel
 */
-
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up)
 {
 	t_vec3	forward;

@@ -1,7 +1,14 @@
 #include "miniRT.h"
 
-/*
-Ray equation:P(t) = O + tD
+/**
+ * @brief 	the ray-sphere intersection function called in rendering scene
+ *
+ * @param 	ray ray to be checked for intersection
+ * @param 	*sphere sphere to be checked for intersection
+ * @param 	*rec hit record to store intersection info	
+ * @return void
+ *
+ * @note Ray equation:P(t) = O + tD
 why? :  we need to find “where” a ray hits something,
 this function calculates that point.
 A ray is a half-infinite line in 3D space, starting
@@ -29,7 +36,8 @@ t represents how far along the ray we go to reach the hit point.
 The smaller t usually hits the closest point on the object.
 The larger t might hit the back of the object (or go through it).
 We want the first visible intersection — the front of the object.
-*/
+ *
+ */
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 {
 	t_hit_sphere_info	hit;
@@ -59,12 +67,24 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
 	return (true);
 }
 
-// first check if plane is horizontal to ray,
-// if yes, not hit
-// don: denominator: fenmu
-// rec->t: t= (Po​−O)⋅n​ / d⋅n
-// if (rec->t < EPSILON): ray towards the back directions
-// P=O+t⋅D
+
+
+/**
+ * @brief 	the ray-sphere intersection function called in rendering scene
+ *
+ * @param 	ray ray to be checked for intersection
+ * @param 	*sphere sphere to be checked for intersection
+ * @param 	*rec hit record to store intersection info	
+ * @return void
+ *
+ * @note first check if plane is horizontal to ray,
+if yes, not hit
+don: denominator: fenmu
+rec->t: t= (Po​−O)⋅n​ / d⋅n
+if (rec->t < EPSILON): ray towards the back directions
+P=O+t⋅Drsection — the front of the object.
+ *
+ */
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec)
 {
 	float	don;

@@ -13,6 +13,15 @@ static void	update_hit_record(t_hit_record *tmp, float *closest_t,
 	return ;
 }
 
+/**
+ * @brief 	the ray-sphere intersection function called in rendering scene
+ *
+ * @param 	ray ray to be checked for intersection
+ * @param 	*obj object list to be checked for intersection
+ * @param 	*rec hit record to store intersection info	
+ * @return void
+ *
+ */
 bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec)
 {
 	bool			cur_hit;

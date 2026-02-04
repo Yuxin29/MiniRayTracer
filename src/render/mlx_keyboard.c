@@ -1,7 +1,9 @@
 #include "miniRT.h"
 
-// Clicking on the red cross on the window’s frame
-// must close the window and quit the program cleanly.
+/**
+ * @brief 	helper function to handle window closing
+ * @note 	we set scene->running to false to exit the mlx loop
+ */
 void	close_window(void *param)
 {
 	t_scene	*scene;
@@ -10,6 +12,9 @@ void	close_window(void *param)
 	scene->running = false;
 }
 
+/**
+ * @brief 	helper function to handle W/A/S/D keys for movement
+ */
 static void	move_keys(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_vec3	move;
@@ -30,6 +35,9 @@ static void	move_keys(mlx_key_data_t keydata, t_scene *scene)
 	}
 }
 
+/**
+ * @brief 	helper function to handle up/down arrow keys for scaling
+ */
 static void	scale_keys(mlx_key_data_t keydata, t_scene *scene)
 {
 	float	scale;
@@ -46,7 +54,10 @@ static void	scale_keys(mlx_key_data_t keydata, t_scene *scene)
 	}
 }
 
-// we assume the rotate always happengin around the vertical axit
+/**
+ * @brief 	helper function to handle left/right arrow keys for rotation
+ * @note 	we assume the rotate always happengin around the vertical axit
+ */
 static void	rotate_keys(mlx_key_data_t keydata, t_scene *scene)
 {
 	t_vec3	y_axis;
@@ -64,7 +75,16 @@ static void	rotate_keys(mlx_key_data_t keydata, t_scene *scene)
 	}
 }
 
-//Pressing ESC must close the window and quit the program cleanly.
+/**
+ * @brief 	keyboard hook function to handle key events
+ *
+ * @param 	keydata key data structure from mlx
+ * @param 	*param pointer to the scene struct		
+ * @return void	
+ *
+ * @note 	according to subject:
+			Pressing ESC must close the window and quit the program cleanly.
+ */
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_scene	*scene;
