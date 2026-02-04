@@ -1,5 +1,12 @@
 #include "miniRT.h"
 
+
+/**
+ * @brief 	Delete mlx instance and image
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return void	
+ *
+ */
 static void	delete_mlx(t_scene *scene)
 {
 	if (scene->mlx)
@@ -13,6 +20,14 @@ static void	delete_mlx(t_scene *scene)
 	return ;
 }
 
+
+/**
+ * @brief 	Free the scene struct and its contents		
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return void
+ *
+ * @note called when error occurs during parsing or at the end of the program
+ */
 void	ft_free_scene(t_scene *scene)
 {
 	t_object	*obj_tmp;
@@ -39,10 +54,14 @@ void	ft_free_scene(t_scene *scene)
 	scene = NULL;
 }
 
-//sub
-// Your program must take as a first argument
-// a scene description file with the .rt extension.
-//check if file suffix valid // open file successful
+/**
+ * @brief 	Check if the file is valid and open it
+ * @param 	**av array of arguments
+ * @param 	*t_scene scene pointer to the scene struct
+ * @return bool true if file is valid and opened, false otherwise
+ *
+ * @note check if the file has .rt extension and read only permission
+ */
 static bool	check_file(char **av, t_scene *scene)
 {
 	char	*ext;
@@ -62,9 +81,14 @@ static bool	check_file(char **av, t_scene *scene)
 	return (true);
 }
 
-//check if ac nbr correct and malloc for scene succcessful
-// initianize need_loop and the default height and width
-//then call the check file, scene bezeroed in check file
+/**
+ * @brief 	Precheck the arguments, malloc scene and check file, set default values of scene
+ * @param 	ac number of arguments
+ * @param 	**av array of arguments
+ * @return t_scene* pointer to the parsed scene or NULL if error
+ *
+ * @note 	If the number of arguments is not correct, or if malloc fails, or if file check fails, return NULL
+ */
 static t_scene	*precheck_av(int ac, char **av)
 {
 	t_scene	*scene;
@@ -92,9 +116,15 @@ static t_scene	*precheck_av(int ac, char **av)
 	return (scene);
 }
 
-//call check av firsr, then get each line and check and parse eachline'
-// return the parsed scene to the main
-// if error occured during one line. free evertyihg so far and return null
+/**
+ * @brief 	Parsing the .rt file
+ * @param 	ac number of arguments
+ * @param 	**av array of arguments
+ * @return t_scene* pointer to the parsed scene or NULL if error
+ *
+ * @note call precheck av first, then get each line and check and parse eachline
+ *       if error occured during one line. free evertyihg so far and return null
+ */
 t_scene	*parsing(int ac, char **av)
 {
 	char	*line;

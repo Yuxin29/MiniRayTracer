@@ -99,6 +99,8 @@ bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz)
 	return (true);
 }
 
+// Each type of element can be separated by one or more line break(s).
+// -> it coulld the empty space or self_defined
 // 3d normalized orientation vector.
 // In range [-1,1] for each x,y,z axis
 bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor) //should modify?
