@@ -57,3 +57,16 @@ t_vec3	vec_cross(t_vec3 a, t_vec3 b)
 	result.z = a.x * b.y - a.y * b.x;
 	return (result);
 }
+
+/**
+ * @brief 	fill in the x, y, z components of a vector
+ */
+t_vec3	vec3(float x, float y, float z)
+{
+	t_vec3	v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}

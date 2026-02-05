@@ -1,7 +1,15 @@
 #include "miniRT_bonus.h"
 
-// reflective vec formular
-// R = 2(N·L)N - L
+/**
+ * @brief	helper function to calculate the rv in Ispec ​= k ​⋅ Ilight ​⋅ (max(R⋅V ,0)) shininess
+ *
+ * @param 	light light in the scene
+ * @param 	rec hit record at the point being lit
+ * @param 	pos position of the camera
+ * @return 	float max(R·V ,0)
+ *
+ * @note	reflective vec formular: R = 2(N·L)N - L
+ */
 static float	get_max(t_light light, t_hit_record rec, t_vec3 pos)
 {
 	t_vec3	reflective_vec;
@@ -20,14 +28,23 @@ static float	get_max(t_light light, t_hit_record rec, t_vec3 pos)
 	return (rv);
 }
 
-//Ispec ​= k ​⋅ Ilight ​⋅ (max(R⋅V ,0)) shininess
-// k: specular strenghth (0 - 1.0)
-// I: light brightness
-// R: vector: reflective vec
-// V: vector: ray vec
-// shininess: exponent (controls "sharpness" of highlight, e.g. 16, 32, 64)
-// Ispec = k * light * br * powerpart
-// res_color.r = clamp(light.rgb.r * light.br_ratio * k * power_part, 0, 255); 	
+/**
+ * @brief 	calculate the final color at the hit point considering specular lighting
+ *
+ * @param 	light light in the scene
+ * @param 	rec hit record at the point being lit
+ * @param 	pos position of the camera
+ * @return 	t_color final specular color at the hit point
+ *
+ * @note	Ispec ​= k ​⋅ Ilight ​⋅ (max(R⋅V ,0)) shininess
+				-> k: specular strenghth (0 - 1.0)
+				-> I: light brightness
+				-> R: vector: reflective vec
+				-> V: vector: ray vec
+				-> shininess: exponent (controls "sharpness" of highlight, e.g. 16, 32, 64)
+				-> Ispec = k * light * br * powerpart
+				->res_color.r = clamp(light.rgb.r * light.br_ratio * k * power_part, 0, 255); 	
+ */
 static t_color	apply_specular(t_light light, t_hit_record rec, t_vec3 pos)
 {
 	int		shininess;
@@ -46,8 +63,8 @@ static t_color	apply_specular(t_light light, t_hit_record rec, t_vec3 pos)
 	return (res_color);
 }
 
-//yuxin added for checkerboard
-//after hit obj, use (x, z) to decide is it single or double
+// yuxin added for checkerboard
+// after hit obj, use (x, z) to decide is it single or double
 // #include <stdlib.h>
 // int abs(int x); absolute value
 // floorf rounded a float down to an int
@@ -87,9 +104,16 @@ static t_color	apply_checkerboard(t_hit_record rec, t_color original_color)
 	return (original_color);
 }
 
-//this one from lin, just need to apply checkerboard color here
-// final_color = ambient + diffuse (+ specular)
-// t_color final_color(t_scene *scene, t_hit_record rec, t_object *obj)
+/**
+ * @brief 	calculate the final color at the hit point considering specular lighting and checkerboard
+ *
+ * @param 	*scene scene containing camera and lighting info
+ * @param 	rec hit record at the point being lit
+ * @return 	t_color final overall color at the hit point
+ *
+ * @note	this is used for bonus part with specular and checkerboard
+ * 			final_color = ambient + diffuse + specular
+ */
 t_color	final_color(t_scene *scene, t_hit_record rec)
 {
 	t_color	final;

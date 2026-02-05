@@ -1,8 +1,14 @@
 #include "miniRT.h"
 
-/*
-final_color = ambient + diffuse
-*/
+/**
+ * @brief 	calculate the final color at the hit point considering ambient and diffuse lighting
+ *
+ * @param 	*scene scene containing camera and lighting info
+ * @param 	rec hit record at the point being lit
+ * @return 	t_color final color at the hit point
+ *
+ * @note	final_color = ambient + diffuse
+ */
 t_color	final_color(t_scene *scene, t_hit_record rec)
 {
 	t_color	final;

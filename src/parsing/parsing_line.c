@@ -57,6 +57,25 @@ bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data)
 }
 
 /**
+ * @brief 	normalize one line of the .rt file: change all spaces to the ' '
+ *
+ * @param 	line line to be normalized
+ */
+void	normalize_line(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isspace(line[i]))
+			line[i] = ' ';
+		i++;
+	}
+	return ;
+}
+
+/**
  * @brief 	parsing one line of the .rt file
  * @param 	line line to parse
  * @param 	*t_scene scene pointer to the scene struct

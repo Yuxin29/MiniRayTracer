@@ -214,11 +214,13 @@ float	vec_len(t_vec3 a);
 t_vec3	vec_normalize(t_vec3 v);
 float	vec_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec_cross(t_vec3 a, t_vec3 b);
+t_vec3	vec3(float x, float y, float z);
 /* ~~~~~~~~~~~~~~~~~~ PARSING ~~~~~~~~~~~~~~~~~~ */
-//parsing_file.c          4/5
+//parsing_file.c	5/5
 t_scene	*parsing(int ac, char **av);
 void	ft_free_scene(t_scene *scene);
-//parsing_line.c	3/5		check each line, return true or false
+//parsing_line.c	4/5		check each line, return true or false
+void	normalize_line(char *line);
 bool	validating_parsing_line(char *line, t_scene *scene);
 bool	add_obj_to_scene(t_scene *scene, t_obj_type type, void *data);
 // parsing_env.c     3/5	a_light, camera, light:
@@ -230,11 +232,10 @@ bool	validate_parsing_tokens_sp(char **tokens, t_scene *scene);
 //parsing_obj_2.c     5/5	plane and cylinder
 bool	validate_parsing_tokens_pl(char **tokens, t_scene *scene);
 bool	validate_parsing_tokens_cy(char **tokens, t_scene *scene);
-//parsing_utils_1.c   4/5	str helpers
+//parsing_utils_1.c   3/5	str helpers
 float	ft_atoi_float(char *str);
 int		count_token_nbr(char **tokens);
 void	free_three_arr(char **vec_1, char **vec_2, char **colors);
-void	normalize_line(char *line);
 //parsing_utils_2.c   5/5	fill **str to t_vec and t_color
 bool	check_valid_float(char *str);
 bool	do_color(char **colors, t_color *rgb);
@@ -242,7 +243,6 @@ bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor);
 bool	do_xyz_vectoy(char **vec, t_vec3 *vec_xyz);
 /* ~~~~~~~~~~~~~~~~~~ RAY_tracing ~~~~~~~~~~~~~~~~~~ */
 //cemera_ray.c
-t_vec3	vec3(float x, float y, float z);
 void	init_camera_frame(t_camera	*cam, t_vec3 *right, t_vec3 *up);
 void	init_viewport(t_scene *scene);
 t_ray	generate_primary_ray(int x, int y, t_scene *scene);
@@ -252,8 +252,8 @@ bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec);
 //hit_cylinder
 bool	hit_cylinder(t_ray ray, t_cylinder *cy, t_hit_record *rec);
 //hit_cylinder_utils
-bool	hit_bottom_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec);
-bool	hit_top_cap(t_ray ray, t_cylinder *cy, t_hit_record *rec);
+bool	hit_cylinder_body(t_ray ray, t_cylinder *cy, t_hit_record *rec);
+bool	hit_cylinder_caps(t_ray ray, t_cylinder *cy, t_hit_record *rec);
 //hit obejcts
 bool	hit_objects(t_ray ray, t_object *obj, t_hit_record *rec);
 //handle_light_utils

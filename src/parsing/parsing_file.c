@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-
 /**
  * @brief 	Delete mlx instance and image
  * @param 	*t_scene scene pointer to the scene struct

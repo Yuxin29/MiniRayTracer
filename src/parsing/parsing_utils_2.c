@@ -57,44 +57,6 @@ bool	do_color(char **colors, t_color *rgb)
 }
 
 /**
- * @brief 	check if a string is a valid float number
- *
- * @param 	str string to be checked
- * @return bool true if the string is a valid float, false otherwise
- *
- * @note 	a valid float str must has a digit before .
-			must has one and only one dote
-			after the dote, the has to be at list one digit
- */
-bool	check_valid_float(char *str)
-{
-	int		i;
-
-	i = 0;
-	if (!str[0])
-		return (false);
-	if (str[i] == '-')
-		i++;
-	if (!ft_isdigit(str[i]))
-		return (false);
-	while (ft_isdigit(str[i]))
-		i++;
-	if (str[i] == '.')
-	{
-		i++;
-		if (!str[i])
-			return (false);
-		if (!ft_isdigit(str[i]))
-			return (false);
-		while (ft_isdigit(str[i]))
-			i++;
-	}
-	if (str[i] != '\0')
-		return (false);
-	return (true);
-}
-
-/**
  * @brief 	convert a string array to a normalized vector
  *
  * @param 	vec string array to be converted
@@ -159,5 +121,44 @@ bool	do_normalized_vectoy(char **vec, t_vec3 *vec_nor)
 	if (fabs(vec_len(*vec_nor)) < EPSILON)
 		return (false);
 	*vec_nor = vec_normalize(*vec_nor);
+	return (true);
+}
+
+
+/**
+ * @brief 	check if a string is a valid float number
+ *
+ * @param 	str string to be checked
+ * @return bool true if the string is a valid float, false otherwise
+ *
+ * @note 	a valid float str must has a digit before .
+			must has one and only one dote
+			after the dote, the has to be at list one digit
+ */
+bool	check_valid_float(char *str)
+{
+	int		i;
+
+	i = 0;
+	if (!str[0])
+		return (false);
+	if (str[i] == '-')
+		i++;
+	if (!ft_isdigit(str[i]))
+		return (false);
+	while (ft_isdigit(str[i]))
+		i++;
+	if (str[i] == '.')
+	{
+		i++;
+		if (!str[i])
+			return (false);
+		if (!ft_isdigit(str[i]))
+			return (false);
+		while (ft_isdigit(str[i]))
+			i++;
+	}
+	if (str[i] != '\0')
+		return (false);
 	return (true);
 }

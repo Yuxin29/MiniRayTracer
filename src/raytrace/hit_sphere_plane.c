@@ -6,36 +6,35 @@
  * @param 	ray ray to be checked for intersection
  * @param 	*sphere sphere to be checked for intersection
  * @param 	*rec hit record to store intersection info	
- * @return void
+ * @return 	bool indicating if there was a hit
  *
- * @note Ray equation:P(t) = O + tD
-why? :  we need to find “where” a ray hits something,
-this function calculates that point.
-A ray is a half-infinite line in 3D space, starting
-from a point and going in a direction.
-Sphere equation (center C, radius r): ||P(t) - C||² = r²
-Substitute the ray into the sphere equation:||O + tD - C||² = r²
-Simplify: Let: oc = O - C
-Then: ||oc + tD||² = r²
-Expand the square using dot product:
-So:
-(oc + tD) ⋅ (oc + tD) = r²
-Use distributive property of dot product:
-oc ⋅ oc + 2t(oc ⋅ D) + t²(D ⋅ D) = r²
-Rearranged form:
-Bring everything to one side to form a quadratic:
-t²(D ⋅ D) + 2t(oc ⋅ D) + (oc ⋅ oc - r²) = 0
-This is a quadratic equation of the form:
-at² + bt + c = 0
-Where:
-a = D ⋅ D, (vec_dot(D, D))
-b = 2 * (oc ⋅ D),(2*vec_dot())
-c = oc ⋅ oc - r² , (vec_dot（）- r²)
-
-t represents how far along the ray we go to reach the hit point.
-The smaller t usually hits the closest point on the object.
-The larger t might hit the back of the object (or go through it).
-We want the first visible intersection — the front of the object.
+ * @note 	Ray equation:P(t) = O + tD
+			why? :  we need to find “where” a ray hits something,
+			this function calculates that point.
+			A ray is a half-infinite line in 3D space, starting
+			from a point and going in a direction.
+			Sphere equation (center C, radius r): ||P(t) - C||² = r²
+			Substitute the ray into the sphere equation:||O + tD - C||² = r²
+			Simplify: Let: oc = O - C
+			Then: ||oc + tD||² = r²
+			Expand the square using dot product:
+			So:
+			(oc + tD) ⋅ (oc + tD) = r²
+			Use distributive property of dot product:
+			oc ⋅ oc + 2t(oc ⋅ D) + t²(D ⋅ D) = r²
+			Rearranged form:
+			Bring everything to one side to form a quadratic:
+			t²(D ⋅ D) + 2t(oc ⋅ D) + (oc ⋅ oc - r²) = 0
+			This is a quadratic equation of the form:
+			at² + bt + c = 0
+			Where:
+			a = D ⋅ D, (vec_dot(D, D))
+			b = 2 * (oc ⋅ D),(2*vec_dot())
+			c = oc ⋅ oc - r² , (vec_dot（）- r²)
+			t represents how far along the ray we go to reach the hit point.
+			The smaller t usually hits the closest point on the object.
+			The larger t might hit the back of the object (or go through it).
+			We want the first visible intersection — the front of the object.
  *
  */
 bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
@@ -75,15 +74,14 @@ bool	hit_sphere(t_ray ray, t_sphere *sphere, t_hit_record *rec)
  * @param 	ray ray to be checked for intersection
  * @param 	*sphere sphere to be checked for intersection
  * @param 	*rec hit record to store intersection info	
- * @return void
+ * @return 	void
  *
- * @note first check if plane is horizontal to ray,
-if yes, not hit
-don: denominator: fenmu
-rec->t: t= (Po​−O)⋅n​ / d⋅n
-if (rec->t < EPSILON): ray towards the back directions
-P=O+t⋅Drsection — the front of the object.
- *
+ * @note 	first check if plane is horizontal to ray,
+			if yes, not hit
+			don: denominator: fenmu
+			rec->t: t= (Po​−O)⋅n​ / d⋅n
+			if (rec->t < EPSILON): ray towards the back directions
+			P=O+t⋅Drsection — the front of the object.
  */
 bool	hit_plane(t_ray ray, t_plane *plane, t_hit_record *rec)
 {

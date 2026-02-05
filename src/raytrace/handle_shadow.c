@@ -1,16 +1,21 @@
 #include "miniRT.h"
 
-/*
-Ray equation:P(t) = O + tD
-if t < light_len, ensures the object blocks the path to the light.
-light_len = light_pos - hit_pos,
-shadow_ray:
-shadow_origin = rec.p + rec.normal * EPSILON;
-shadow Direction = light dir = normalized(light_position - hit_point);
-how can i get t then?
-using hit_something by shadow ray;
-*/
-
+/**
+ * @brief 	check if a point is in shadow relative to a light source
+ *
+ * @param 	ray shadow ray from the point towards the light source
+ * @param 	*obj object list in the scene
+ * @param 	max_len distance to the light source
+ * @return 	void
+ * @note 	Ray equation:P(t) = O + tD
+			if t < light_len, ensures the object blocks the path to the light.
+			light_len = light_pos - hit_pos,
+			shadow_ray:
+			shadow_origin = rec.p + rec.normal * EPSILON;
+			shadow Direction = light dir = normalized(light_position - hit_point);
+			how can i get t then?
+			using hit_something by shadow ray;
+ */
 static bool	hit_shadow(t_ray ray, t_object *obj, float max_len)
 {
 	t_hit_record	tmp;
@@ -39,6 +44,21 @@ static bool	hit_shadow(t_ray ray, t_object *obj, float max_len)
 	return (false);
 }
 
+/**
+ * @brief 	check if a point is in shadow relative to a light source
+ *
+ * @param 	rec hit record at the point being checked
+ * @param 	light light source
+ * @param 	*obj object list in the scene
+ * @return 	void
+ * @note 	To determine if a point is in shadow relative to a light source,
+			we cast a "shadow ray" from the point towards the light source.
+			If this shadow ray intersects any object before reaching the light,
+			the point is considered to be in shadow.
+			We offset the shadow ray's origin slightly along the surface normal
+			to avoid self-shadowing artifacts (commonly known as "shadow acne").
+			EPSILON is a small constant used for this offset.
+ */
 bool	is_in_shadow(t_hit_record rec, t_light light, t_object *obj)
 {
 	t_ray	shadow;

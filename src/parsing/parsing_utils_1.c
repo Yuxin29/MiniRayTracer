@@ -83,22 +83,3 @@ float	ft_atoi_float(char *str)
 		number = get_decimal((char *)str, number);
 	return (number * sign);
 }
-
-/**
- * @brief 	normalize one line of the .rt file: change all spaces to the ' '
- *
- * @param 	line line to be normalized
- */
-void	normalize_line(char *line)
-{
-	int		i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (ft_isspace(line[i]))
-			line[i] = ' ';
-		i++;
-	}
-	return ;
-}

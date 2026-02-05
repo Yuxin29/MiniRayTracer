@@ -1,5 +1,14 @@
 #include "miniRT.h"
 
+/**
+ * @brief 	if hit, update the hit record with closest t
+ *
+ * @param 	*tmp temporary hit record
+ * @param 	*closest_t closest t value	
+ * @param 	*obj object list to be checked for intersection
+ * @param 	*rec hit record to store intersection info	
+ * @return void
+ */
 static void	update_hit_record(t_hit_record *tmp, float *closest_t,
 	t_hit_record *rec, t_object *obj)
 {

@@ -1,8 +1,15 @@
 #include "miniRT.h"
 
-/*
-should control the value from 0-255
-*/
+/**
+ * @brief 	clamp the value between min and max
+*
+ * @param 	value value to be clamped
+ * @param 	min minimum value
+ * @param 	max maximum value
+ * @return 	clamped value
+ *
+ * @note	should control the value from 0-255
+ */
 int	clamp(int value, int min, int max)
 {
 	if (value > max)
@@ -12,11 +19,17 @@ int	clamp(int value, int min, int max)
 	return (value);
 }
 
-/*
-uint8_t * float => float, but unit8_t is int;
-so i should cast the value to int before do clamp
-ambient_color = object_color * ambient_light_color * ambient_ratio;
-*/
+/**
+ * @brief 	apply ambient light to the object's color
+*
+ * @param 	obj_color color of the object
+ * @param 	amb ambient light in the scene	
+ * @return 	t_color color of the object
+ *
+ * @note	ambient_color = object_color * ambient_light_color * ambient_ratio;
+			uint8_t * float => float, but unit8_t is int;
+			so i should cast the value to int before do clamp
+ */
 t_color	apply_ambient(t_color obj_color, t_a_light amb)
 {
 	t_color	result;
@@ -30,14 +43,20 @@ t_color	apply_ambient(t_color obj_color, t_a_light amb)
 	return (result);
 }
 
-/*
-color = ambient_color * ambient_ratio
-diffuse_strength = max(dot(N, L), 0.0)
-final_color = ambient + (obj_color.r
-* light_color.r/255 * brightness * diffuse_strength);
-N = surface normal at the hit point
-L = direction to the light
-*/
+/**
+ * @brief 	apply diffuse light to the object's color
+*
+ * @param 	obj_color color of the object
+ * @param 	light light in the scene
+ * @param 	rec hit record at the point being lit
+ * @return 	t_color diffuse color of the object
+ *
+ * @note	color = ambient_color * ambient_ratio
+			diffuse_strength = max(dot(N, L), 0.0)
+				-> N = surface normal at the hit point
+				-> L = direction to the light
+			final_color = ambient + (obj_color.r * light_color.r/255 * brightness * diffuse_strength);
+ */
 t_color	apply_diffuse(t_color obj_color, t_light light, t_hit_record rec)
 {
 	float	diffuse_strength;
@@ -57,6 +76,13 @@ t_color	apply_diffuse(t_color obj_color, t_light light, t_hit_record rec)
 	return (color);
 }
 
+/**
+ * @brief 	get the color of the object itself
+ *
+ * @param 	*obj object being hit
+ * @return 	t_color color of the object
+ *
+ */
 t_color	get_color_from_object(t_object *obj)
 {
 	if (obj->type == OBJ_SP)
